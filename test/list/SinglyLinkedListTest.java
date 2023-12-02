@@ -61,7 +61,15 @@ class SinglyLinkedListTest {
 			nonEmptyList.addLast(num);
 			assertEquals(num, nonEmptyList.get(3));
 		}
-//		add test for addAt(int index, T value)
+		@Test
+		void addAt() {
+			nonEmptyList.addAt(1, 2);
+			assertEquals("1, 2, 5, 10", nonEmptyList.toString());
+		}
+		@Test
+		void addAtOutOfRange() {
+			assertThrows(IndexOutOfBoundsException.class, () -> { nonEmptyList.addAt(4, 100); });
+		}
 	}
 	
 	@Nested

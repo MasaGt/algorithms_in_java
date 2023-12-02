@@ -267,31 +267,58 @@ public class SinglyLinkedList<T> {
 	 * remove all the node from this list
 	 */
 	public void clear() {
-		
 		int repetitionNumber = size;
-		
 		for (int i = 0; i < repetitionNumber; i++) {
 			remove(0);
 		}
 	}
 
-//	public void addAt(int index, T value) {
-//		
-//		if (index < 0 && index > size) {
-//			throw new IndexOutOfBoundsException();
-//		}
-//		
-////		if (size == 0) {
-////			if (index > size) {
-////				throw new IndexOutOfBoundsException();
-////			}
-////		} else {
-////			if (index > size) {
-////				
-////			}
-////		}
-//		
-//	}
+	/**
+	 * 
+	 * @param index
+	 * @param value
+	 * @throws IndexOutOfBoundsException if the specified index is out of the range
+	 */
+	public void addAt(int index, T value) {
+		
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		if (index == 0) {
+			addFirst(value);
+		} else if (index == size) { 
+			addLast(value);
+		} else {
+			Node<T> curreNode = headNode;
+			/**
+			 * why i in the for-loop begins from 1.
+			 * this list uses Zero-based array indexing.
+			 *    ____     ____
+			 *   |node|-->|node|-->
+			 *   |____|   |____|
+			 * ^        ^        ^
+			 * |        |        |
+			 * 0        1        2
+			 * 
+			 * when index = 0 new node is added at first as the code above.
+			 * this code considers inserting node at 1 or any later.
+			 */
+			for (int i = 1; i < index; i++) {
+				curreNode = curreNode.next;
+			}
+			/**
+			 *  ____________         ________         ______
+			 * |current node|       |new node|       |node  |
+			 * |            | ----> |        | ----> |      |
+			 * |____________|       |________|       |______|
+			 */
+			Node<T> newNode = new Node<T>(value);
+			newNode.next = curreNode.next;
+			curreNode.next = newNode;
+			size++;
+		}
+	}
 }
 
 
