@@ -104,16 +104,14 @@ public class SinglyLinkedList<T> {
 	 * @return value of the node at the index
 	 * @throws IndexOutOfBoundsException if the specified index is out of the range
 	 */
-	public T get(int i) {
+	public T get(int index) {
 		
-		if (i >= size) {
-			throw new IndexOutOfBoundsException();
-		}
+		checkIndexInTheRange(index);
 		
 		int count = 0;
 		Node<T> currentNode = headNode;
 		
-		while (count < i) {
+		while (count < index) {
 			count++;
 			currentNode = currentNode.next;
 		}
@@ -206,7 +204,94 @@ public class SinglyLinkedList<T> {
 		return true;
 		
 	}
+	
+	/**
+	 * remove the first node: change the head node.
+	 * remove 'n'th node: make n-1th node next points to n+1th node.
+	 * 
+	 *   ____________	                         ______________
+	 *  | n-1th  node|	                        | n+1th  node  |
+	 *  |            |------------------------->|              |	
+	 *  |____________|	                     	|______________|
+	 *  
+	 *                     	_____________
+	 *                     | nth   node  |
+	 *                     |             |
+	 *                     |_____________| 
+	 * 
+	 * @param index
+	 * @return value of the removed node
+	 */
+	public T remove(int index) {
+		
+		checkIndexInTheRange(index);
+		
+		Node<T> currentNode = headNode;
+		T returnValue = null;
+		
+		if (index == 0) {
+			headNode = currentNode.next;
+		} else {
+			Node<T> prevNode = null;
+			// move i to the specified index
+			for (int i = 0; i < index; i++) {
+				prevNode = currentNode;
+				currentNode = currentNode.next;
+				
+			}
+			prevNode.next = currentNode.next;
+		}
+		
+		returnValue = currentNode.value;
+		// make removed node null so that the garbage collector will delete it
+		currentNode.next = null;
+		currentNode = null;
+		size--;
+		
+		return returnValue;
+	}
+	
+	
+	/**
+	 * 
+	 * @param index
+	 * @throws IndexOutOfBoundsException if the specified index is out of the range
+	 */
+	private void checkIndexInTheRange(int index) {
+		if (index >= size || index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+	}
 
+	/**
+	 * remove all the node from this list
+	 */
+	public void clear() {
+		
+		int repetitionNumber = size;
+		
+		for (int i = 0; i < repetitionNumber; i++) {
+			remove(0);
+		}
+	}
+
+//	public void addAt(int index, T value) {
+//		
+//		if (index < 0 && index > size) {
+//			throw new IndexOutOfBoundsException();
+//		}
+//		
+////		if (size == 0) {
+////			if (index > size) {
+////				throw new IndexOutOfBoundsException();
+////			}
+////		} else {
+////			if (index > size) {
+////				
+////			}
+////		}
+//		
+//	}
 }
 
 

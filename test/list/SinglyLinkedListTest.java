@@ -12,11 +12,13 @@ class SinglyLinkedListTest {
 	
 	private SinglyLinkedList<String> emptyList;
 	private SinglyLinkedList<Integer> nonEmptyList;
+	private String valueForEmptyList;
 	
 	@BeforeEach
 	public void prepLists() {
 		emptyList = new SinglyLinkedList<String>();
 		nonEmptyList = new SinglyLinkedList<Integer>(new Integer[] {1, 5, 10});
+		valueForEmptyList = "Hello";
 	}
 	
 	@Nested
@@ -35,21 +37,15 @@ class SinglyLinkedListTest {
 	class addTests {
 		@Test
 		void addValue() {
-			String msg = "Hello";
-			emptyList.add(msg);
-			assertEquals(msg, emptyList.toString());
-		}
-		@Test
-		void addReturn() {
-			String msg = "Hello";
-			boolean result = emptyList.add(msg);
+			boolean result = emptyList.add(valueForEmptyList);
+			assertEquals(valueForEmptyList, emptyList.toString());
 			assertTrue(result);
 		}
 		@Test
 		void addFirst() {
-			String msg = "Hello";
-			emptyList.addFirst(msg);
-			assertEquals(msg, emptyList.get(0));
+			// able to remove either one from the following
+			emptyList.addFirst(valueForEmptyList);
+			assertEquals(valueForEmptyList, emptyList.get(0));
 			
 			Integer num = 0;
 			nonEmptyList.addFirst(num);
@@ -57,9 +53,9 @@ class SinglyLinkedListTest {
 		}
 		@Test
 		void addLast() {
-			String msg = "Hello";
-			emptyList.addLast(msg);
-			assertEquals(msg, emptyList.get(0));
+			// able to remove either one from the following
+			emptyList.addLast(valueForEmptyList);
+			assertEquals(valueForEmptyList, emptyList.get(0));
 			
 			Integer num = 0;
 			nonEmptyList.addLast(num);
@@ -97,7 +93,7 @@ class SinglyLinkedListTest {
 	}
 	
 	@Nested
-	class containesTests {
+	class containsTests {
 		@Test
 		void containsEquivalentItem() {
 			assertTrue(nonEmptyList.contains(1));
@@ -145,6 +141,35 @@ class SinglyLinkedListTest {
 			assertTrue(list1.equals(list2));
 		}
 	}
-	// TODO: add test for remove and clear
+	
+	@Nested
+	class removeTest {
+		@Test
+		void removeItemAt() {
+			int index = 1;
+			Integer removedItem = nonEmptyList.remove(index);
+			assertEquals(5, removedItem);
+			assertEquals("1, 10", nonEmptyList.toString());
+		}
+		@Test
+		void removeItemAtFromEmptyList() {
+			int index = 1;
+			assertThrows(IndexOutOfBoundsException.class, () -> { emptyList.remove(index); });
+		}
+	}
+	
+	@Nested
+	class clearTest {
+		@Test
+		void clearAllNodesFromNonEmptyList() {
+			nonEmptyList.clear();
+			assertEquals("", nonEmptyList.toString());
+		}
+		@Test
+		void clearAllNodesFromEmptyList() {
+			emptyList.clear();
+			assertEquals("", emptyList.toString());
+		}
+	}
 
 }
