@@ -180,7 +180,6 @@ public class SinglyLinkedList<T> {
 			}
 			node = node.next;
 		}
-		
 		return contents;
 	}
 	
@@ -200,7 +199,6 @@ public class SinglyLinkedList<T> {
 				return false;
 			}
 		}
-		
 		return true;
 		
 	}

@@ -91,11 +91,11 @@ class SinglyLinkedListTest {
 			assertThrows(IndexOutOfBoundsException.class, () -> { emptyList.get(0); });
 		}
 		@Test
-		void getFirst_NonExistItem() {
+		void getFirstNonExistItem() {
 			assertThrows(NoSuchElementException.class, () -> { emptyList.getFirst(); });
 		}
 		@Test
-		void getLast_NonExistItem() {
+		void getLastNonExistItem() {
 			assertThrows(NoSuchElementException.class, () -> { emptyList.getLast(); });
 		}
 	}
@@ -151,7 +151,7 @@ class SinglyLinkedListTest {
 	}
 	
 	@Nested
-	class removeTest {
+	class removeTests {
 		@Test
 		void removeItemAt() {
 			int index = 1;
@@ -167,7 +167,7 @@ class SinglyLinkedListTest {
 	}
 	
 	@Nested
-	class clearTest {
+	class clearTests {
 		@Test
 		void clearAllNodesFromNonEmptyList() {
 			nonEmptyList.clear();
