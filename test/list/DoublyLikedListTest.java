@@ -20,5 +20,15 @@ public class DoublyLikedListTest {
 			assertEquals("1, 5, 10", nonEmptyIntList.toString());
 		}
 	}
+	
+	@Nested
+	class AddTests {
+		@Test
+		void addToNonEmptyList() {
+			DoublyLikedList<Integer> nonEmptyIntList = new DoublyLikedList<Integer>(new Integer[] {1,5,10});
+			nonEmptyIntList.add(200);
+			assertEquals("1, 5, 10, 200", nonEmptyIntList.toString());
+		}
+	}
 
 }
