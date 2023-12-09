@@ -1,6 +1,7 @@
 package list;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -47,6 +48,30 @@ public class DoublyLikedListTest {
 		void addLast() {
 			emptyStrList.addLast("Last Node");
 			assertEquals("Last Node", emptyStrList.toString());
+		}
+		@Test
+		void addAtFirstHalf() {
+			nonEmptyIntList.addAt(1, 4);
+			assertEquals("1, 4, 5, 10", nonEmptyIntList.toString());
+		}
+		@Test
+		void addAtSecondHalf() {
+			nonEmptyIntList.addAt(2, 9);
+			assertEquals("1, 5, 9, 10", nonEmptyIntList.toString());
+		}
+		@Test
+		void addAtHead() {
+			nonEmptyIntList.addAt(0, 0);
+			assertEquals("0, 1, 5, 10", nonEmptyIntList.toString());
+		}
+		@Test
+		void addAtTail() {
+			nonEmptyIntList.addAt(3, 100);
+			assertEquals("1, 5, 10, 100", nonEmptyIntList.toString());
+		}
+		@Test
+		void addAtBeyondTheRange() {
+			assertThrows(IndexOutOfBoundsException.class, () -> { nonEmptyIntList.addAt(5, 100); });
 		}
 	}
 

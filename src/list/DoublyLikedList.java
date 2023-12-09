@@ -9,8 +9,8 @@ public class DoublyLikedList<T> {
 
 		public Node(T vale, Node<T> prev, Node<T> next) {
 			this.value = vale;
-			next = prev;
-			prev = next;
+			this.next = next;
+			this.prev = prev;
 		}
 	}
 
@@ -88,6 +88,67 @@ public class DoublyLikedList<T> {
 	private void populateFirstNode(T value) {
 		head = new Node<T>(value, null, null);
 		tail = head;
+	}
+	
+	/**
+	 * add a new node at the specified index
+	 *  _________         ________	       _________
+	 * |prev node| ----> |new node| ----> |next node|
+	 * |_________| <---- |________| <---- |_________|
+	 * 
+	 * @throws IndexOutOfBoundsException if the specified index is out of the range
+	 */
+	public void addAt(int index, T value) {
+		if (index > size || index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		if (index == 0) {
+			addFirst(value);
+		} else if (index == size) {
+			addLast(value);
+		} else {
+			// add node somewhere in the middle
+			Node<T> currentNode = null;
+			if (index <= (size/2)) {
+				//search from head
+				currentNode = head;
+				Node<T> prevNode = null;
+				
+				for (int i = 0; i < index; i++) {
+					prevNode = currentNode;
+					currentNode = currentNode.next;
+				}
+				// insert a new node
+				/**
+				 *  _________         ________	       ____________
+				 * |prev node| ----> |new node| ----> |current node|
+				 * |_________| <---- |________| <---- |____________|
+				 */
+				Node<T> newNode = new Node<T>(value, prevNode, currentNode);
+				prevNode.next = newNode;
+				currentNode.prev = newNode;
+			} else {
+				// search from tail
+				currentNode = tail;
+				Node<T> nextNode = null;
+				
+				for (int i = size; i > index; i--) {
+					nextNode = currentNode;
+					currentNode = currentNode.prev;
+				}
+				// insert a new node
+				/**
+				 *  ____________         ________	       ________
+				 * |current node| ----> |new node| ----> |next node|
+				 * |____________| <---- |________| <---- |_________|
+				 */
+				Node<T> newNode = new Node<T>(value, currentNode, nextNode);
+				currentNode.next = newNode;
+				nextNode.prev = newNode;
+			}
+			size++;
+		}
 	}
 	
 	@Override
