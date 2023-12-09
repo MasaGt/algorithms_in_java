@@ -177,6 +177,42 @@ public class DoublyLikedList<T> {
 		return tail.value;
 	}
 	
+	/**
+	 * 
+	 * @param index
+	 * @return value of a node at the specified index
+	 * @throws IndexOutOfBoundsException if the specified index is out of the range
+	 */
+	public T get(int index) {
+		if (index >= size || index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		T result = null;
+		if (index == 0) {
+			result = getFirst();
+		} else if (index == size - 1) {
+			result = getLast();
+		} else {
+			if (index <= (size/2)) {
+				//search from head
+				Node<T> currentNode = head;
+				for (int i = 0; i < index; i++) {
+					currentNode = currentNode.next;
+				}
+				result = currentNode.value;
+			} else {
+				//search from tail
+				Node<T> currentNode = tail;
+				for (int i = size; i > index; i--) {
+					currentNode = currentNode.prev;
+				}
+				result = currentNode.value;
+			}
+		}
+		return result;
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";

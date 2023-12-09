@@ -87,6 +87,15 @@ public class DoublyLikedListTest {
 			int result = nonEmptyIntList.getLast();
 			assertEquals(10, result);
 		}
+		@Test
+		void get() {
+			int result = nonEmptyIntList.get(1);
+			assertEquals(5, result);
+		}
+		@Test
+		void getFromEmptyList() {
+			assertThrows(IndexOutOfBoundsException.class, () -> { emptyStrList.get(0); });
+		}
 	}
 
 }
