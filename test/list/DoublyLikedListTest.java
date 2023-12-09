@@ -74,5 +74,19 @@ public class DoublyLikedListTest {
 			assertThrows(IndexOutOfBoundsException.class, () -> { nonEmptyIntList.addAt(5, 100); });
 		}
 	}
+	
+	@Nested
+	class GetTest {
+		@Test
+		void getFirst() {
+			int result = nonEmptyIntList.getFirst();
+			assertEquals(1, result);
+		}
+		@Test
+		void getLast() {
+			int result = nonEmptyIntList.getLast();
+			assertEquals(10, result);
+		}
+	}
 
 }

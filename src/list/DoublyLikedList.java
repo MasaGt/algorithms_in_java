@@ -1,5 +1,7 @@
 package list;
 
+import java.util.NoSuchElementException;
+
 public class DoublyLikedList<T> {
 	// inner node
 	private class Node<T> {
@@ -149,6 +151,30 @@ public class DoublyLikedList<T> {
 			}
 			size++;
 		}
+	}
+	
+	/**
+	 * 
+	 * @return value of the head node
+	 * @throws NoSuchElementException
+	 */
+	public T getFirst() {
+		if (head == null) {
+			throw new NoSuchElementException();
+		}
+		return head.value;
+	}
+	
+	/**
+	 * 
+	 * @return value of the tail node
+	 * @throws NoSuchElementException
+	 */
+	public T getLast() {
+		if (tail == null) {
+			throw new NoSuchElementException();
+		}
+		return tail.value;
 	}
 	
 	@Override
