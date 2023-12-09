@@ -37,26 +37,59 @@ public class DoublyLikedList<T> {
 	}
 
 	/**
-	 * add a new node to the end of the list. always return true
 	 * 
 	 * @param value
-	 * @return {@code true}
 	 */
-	public boolean add(T value) {
-
+	public void add(T value) {
 		if (head == null) {
 			// add node to head
-			head = new Node<T>(value, head, null);
-			tail = head;
+			addFirst(value);
 		} else {
 			// add note to tail
-			tail.next = new Node<T>(value, tail, null);
-			tail = tail.next;
+			addLast(value);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param value
+	 */
+	public void addFirst(T value) {
+		if (head == null && tail == null) {
+			populateFirstNode(value);
+		} else {
+			Node<T> newNode = new Node<T>(value, null, head);
+			head.prev = newNode;
+			head = newNode;
 		}
 		size++;
-		return true;
 	}
-
+	
+	/**
+	 * 
+	 * @param value
+	 */
+	public void addLast(T value) {
+		if (head == null && tail == null) {
+			populateFirstNode(value);
+		} else {
+			Node<T> newNode = new Node<T>(value, tail, null); 
+			tail.next = newNode;
+			tail = newNode;
+		}
+		size++;
+	}
+	
+	/**
+	 * add the first Node to the list.
+	 * this is called internally from methods in this class.
+	 * @param value
+	 */
+	private void populateFirstNode(T value) {
+		head = new Node<T>(value, null, null);
+		tail = head;
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";

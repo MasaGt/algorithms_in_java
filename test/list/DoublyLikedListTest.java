@@ -34,9 +34,19 @@ public class DoublyLikedListTest {
 	@Nested
 	class AddTests {
 		@Test
-		void addToNonEmptyList() {
+		void add() {
 			nonEmptyIntList.add(200);
 			assertEquals("1, 5, 10, 200", nonEmptyIntList.toString());
+		}
+		@Test
+		void addFirst() {
+			emptyStrList.add("Test");
+			assertEquals("Test", emptyStrList.toString());
+		}
+		@Test
+		void addLast() {
+			emptyStrList.addLast("Last Node");
+			assertEquals("Last Node", emptyStrList.toString());
 		}
 	}
 
