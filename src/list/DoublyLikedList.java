@@ -176,15 +176,7 @@ public class DoublyLikedList<T> {
 	 * @return value of a node at the specified index
 	 */
 	public T get(int index) {
-		T result = null;
-		if (index == 0) {
-			result = getFirst();
-		} else if (index == size - 1) {
-			result = getLast();
-		} else {
-			result = findNodeAt(index).value;
-		}
-		return result;
+		return findNodeAt(index).value;
 	}
 	
 	/**
@@ -213,6 +205,8 @@ public class DoublyLikedList<T> {
 			return currentNode;
 		}
 	}
+	
+	//TODO: removeとclearとcontainsとequalsを実装する
 	
 	@Override
 	public String toString() {
