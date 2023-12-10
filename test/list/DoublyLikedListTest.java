@@ -1,7 +1,9 @@
 package list;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -121,6 +123,36 @@ public class DoublyLikedListTest {
 		void clearAllNodesFromEmptyList() {
 			emptyStrList.clear();
 			assertEquals("", emptyStrList.toString());
+		}
+	}
+	
+	@Nested
+	class equalsTests {
+		@Test
+		void haveDifferentItems() {
+			
+			DoublyLikedList<String> list1 = new DoublyLikedList<String>();
+			list1.add("Hello");
+			
+			DoublyLikedList<String> list2 = new DoublyLikedList<String>();
+			list2.add("Test");
+			
+			assertFalse(list1.equals(list2));
+		}
+		@Test
+		void haveSameItems() {
+			String str = "Hello";
+			String str2 = "World";
+			
+			DoublyLikedList<String> list1 = new DoublyLikedList<String>();
+			list1.add(str);
+			list1.add(str2);
+			
+			DoublyLikedList<String> list2 = new DoublyLikedList<String>();
+			list2.add(str);
+			list2.add(str2);
+			
+			assertTrue(list1.equals(list2));
 		}
 	}
 }

@@ -245,6 +245,20 @@ public class DoublyLikedList<T> {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof DoublyLikedList)) {
+			return false;
+		}
+		DoublyLikedList<T> target = (DoublyLikedList<T>) obj;
+		for (int i = 0; i < size; i++) {
+			if (get(i) != target.get(i)) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	@Override
 	public String toString() {
