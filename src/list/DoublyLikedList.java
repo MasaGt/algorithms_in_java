@@ -211,15 +211,28 @@ public class DoublyLikedList<T> {
 	 * 
 	 * @param index
 	 * @return the value of the specified node
+	 * @throws IndexOutOfBoundsException if the specified index is out of the range
 	 */
 	public T remove(int index) {
-		Node<T> targetNode = findNodeAt(index);
+		if (index >= size || index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
 		
+		Node<T> targetNode;
 		if (index == 0) {
+			targetNode = head;
 			head = targetNode.next;
+			if (head != null) {
+				head.prev = null;
+			}
 		} else if (index == size - 1) {
+			targetNode = tail;
 			tail = targetNode.prev;
+			if (tail != null) {
+				tail.next = null;
+			}
 		} else {
+			targetNode = findNodeAt(index);
 			Node<T> prevNode = targetNode.prev;
 			Node<T> nextNode = targetNode.next;
 			prevNode.next = nextNode;
