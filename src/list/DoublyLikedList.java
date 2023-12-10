@@ -111,46 +111,39 @@ public class DoublyLikedList<T> {
 			addLast(value);
 		} else {
 			// add node somewhere in the middle
-			Node<T> currentNode = null;
 			if (index <= (size/2)) {
-				//search from head
-				currentNode = head;
-				Node<T> prevNode = null;
-				
-				for (int i = 0; i < index; i++) {
-					prevNode = currentNode;
-					currentNode = currentNode.next;
-				}
-				// insert a new node
+				Node<T> nextNode = findNodeAt(index);
 				/**
-				 *  _________         ________	       ____________
-				 * |prev node| ----> |new node| ----> |current node|
-				 * |_________| <---- |________| <---- |____________|
+				 *  ______________         ________	       _________
+				 * |next.prev node| ----> |new node| ----> |next node|
+				 * |______________| <---- |________| <---- |_________|
 				 */
-				Node<T> newNode = new Node<T>(value, prevNode, currentNode);
-				prevNode.next = newNode;
-				currentNode.prev = newNode;
+				linkBetween(value, nextNode.prev, nextNode);
 			} else {
-				// search from tail
-				currentNode = tail;
-				Node<T> nextNode = null;
-				
-				for (int i = size; i > index; i--) {
-					nextNode = currentNode;
-					currentNode = currentNode.prev;
-				}
-				// insert a new node
+				Node<T> preNode = findNodeAt(index);
 				/**
-				 *  ____________         ________	       ________
-				 * |current node| ----> |new node| ----> |next node|
-				 * |____________| <---- |________| <---- |_________|
+				 *  _________         ________	       ______________
+				 * |prev node| ----> |new node| ----> |prev.next node|
+				 * |_________| <---- |________| <---- |______________|
 				 */
-				Node<T> newNode = new Node<T>(value, currentNode, nextNode);
-				currentNode.next = newNode;
-				nextNode.prev = newNode;
+				linkBetween(value, preNode, preNode.next);
 			}
 			size++;
 		}
+	}
+	
+	/**
+	 *  _________         ________	       ____________
+	 * |prev node| ----> |new node| ----> |next node   |
+	 * |_________| <---- |________| <---- |____________|
+	 * @param value
+	 * @param prevNode
+	 * @param nextNode
+	 */
+	private void linkBetween(T value, Node<T> prevNode, Node<T> nextNode) {
+		Node<T> newNode = new Node<T>(value, prevNode, nextNode);
+		prevNode.next = newNode;
+		nextNode.prev = newNode;
 	}
 	
 	/**
@@ -181,36 +174,44 @@ public class DoublyLikedList<T> {
 	 * 
 	 * @param index
 	 * @return value of a node at the specified index
-	 * @throws IndexOutOfBoundsException if the specified index is out of the range
 	 */
 	public T get(int index) {
-		if (index >= size || index < 0) {
-			throw new IndexOutOfBoundsException();
-		}
-		
 		T result = null;
 		if (index == 0) {
 			result = getFirst();
 		} else if (index == size - 1) {
 			result = getLast();
 		} else {
-			if (index <= (size/2)) {
-				//search from head
-				Node<T> currentNode = head;
-				for (int i = 0; i < index; i++) {
-					currentNode = currentNode.next;
-				}
-				result = currentNode.value;
-			} else {
-				//search from tail
-				Node<T> currentNode = tail;
-				for (int i = size; i > index; i--) {
-					currentNode = currentNode.prev;
-				}
-				result = currentNode.value;
-			}
+			result = findNodeAt(index).value;
 		}
 		return result;
+	}
+	
+	/**
+	 * 
+	 * @param index
+	 * @return the node at the specified index
+	 * @throws indexOutOfBoundsException if the specified index is out of the range
+	 */
+	private Node<T> findNodeAt(int index) {
+		if (index >= size || index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		if (index <= (size/2)) {
+			//search from head
+			Node<T> currentNode = head;
+			for (int i = 0; i < index; i++) {
+				currentNode = currentNode.next;
+			}
+			return currentNode;
+		} else {
+			//search from tail
+			Node<T> currentNode = tail;
+			for (int i = size; i > index; i--) {
+				currentNode = currentNode.prev;
+			}
+			return currentNode;
+		}
 	}
 	
 	@Override
