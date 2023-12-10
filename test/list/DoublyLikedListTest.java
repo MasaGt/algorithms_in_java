@@ -109,4 +109,18 @@ public class DoublyLikedListTest {
 			assertThrows(IndexOutOfBoundsException.class, () -> { emptyStrList.remove(0); });
 		}
 	}
+	
+	@Nested
+	class clearTests {
+		@Test
+		void clearAllNodesFromNonEmptyList() {
+			nonEmptyIntList.clear();
+			assertEquals("", nonEmptyIntList.toString());
+		}
+		@Test
+		void clearAllNodesFromEmptyList() {
+			emptyStrList.clear();
+			assertEquals("", emptyStrList.toString());
+		}
+	}
 }

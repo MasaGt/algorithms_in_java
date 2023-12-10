@@ -235,6 +235,15 @@ public class DoublyLikedList<T> {
 		
 		return removedValue;
 	}
+
+	/**
+	 * remove all the nodes
+	 */
+	public void clear() {
+		while (head != null) {
+			remove(0);
+		}
+	}
 	
 	
 	@Override
