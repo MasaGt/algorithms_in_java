@@ -259,6 +259,23 @@ public class DoublyLikedList<T> {
 		}
 		return true;
 	}
+
+	/**
+	 * 
+	 * @param value
+	 * @return {@code true} if the list has the specified value
+	 */
+	public boolean contains(T value) {
+		Node<T> currentNode = head;
+		
+		while (currentNode != null) {
+			if (currentNode.value == value) {
+				return true;
+			}
+			currentNode = currentNode.next;
+		}
+		return false;
+	}
 	
 	@Override
 	public String toString() {
@@ -273,7 +290,6 @@ public class DoublyLikedList<T> {
 			}
 			currentNode = currentNode.next;
 		}
-
 		return contents;
 	}
 }

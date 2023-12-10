@@ -155,4 +155,16 @@ public class DoublyLikedListTest {
 			assertTrue(list1.equals(list2));
 		}
 	}
+	
+	@Nested
+	class containsTests {
+		@Test
+		void containsEquivalentItem() {
+			assertTrue(nonEmptyIntList.contains(1));
+		}
+		@Test
+		void notContainsEquivalentItem() {
+			assertFalse(nonEmptyIntList.contains(2));
+		}
+	}
 }
