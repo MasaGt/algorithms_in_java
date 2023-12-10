@@ -20,8 +20,6 @@ public class DoublyLikedListTest {
 	
 	@Nested
 	class InitTests {
-		
-		
 		@Test
 		void initEmptyList() {
 			assertEquals("", emptyStrList.toString());
@@ -97,5 +95,18 @@ public class DoublyLikedListTest {
 			assertThrows(IndexOutOfBoundsException.class, () -> { emptyStrList.get(0); });
 		}
 	}
-
+	
+	@Nested
+	class RemoveAt {
+		@Test
+		void removeFromNonEmptyList() {
+			Integer removedItem = nonEmptyIntList.remove(1);
+			assertEquals(5, removedItem);
+			assertEquals("1, 10", nonEmptyIntList.toString());
+		}
+		@Test
+		void removeFromEmptyList() {
+			assertThrows(IndexOutOfBoundsException.class, () -> { emptyStrList.remove(0); });
+		}
+	}
 }

@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 public class DoublyLikedList<T> {
 	// inner node
+	@SuppressWarnings("hiding")
 	private class Node<T> {
 		private T value;
 		private Node<T> next;
@@ -205,8 +206,36 @@ public class DoublyLikedList<T> {
 			return currentNode;
 		}
 	}
+		
+	/**
+	 * 
+	 * @param index
+	 * @return the value of the specified node
+	 */
+	public T remove(int index) {
+		Node<T> targetNode = findNodeAt(index);
+		
+		if (index == 0) {
+			head = targetNode.next;
+		} else if (index == size - 1) {
+			tail = targetNode.prev;
+		} else {
+			Node<T> prevNode = targetNode.prev;
+			Node<T> nextNode = targetNode.next;
+			prevNode.next = nextNode;
+			nextNode.prev = prevNode;
+		}
+		
+		T removedValue = targetNode.value;
+		//make targetNode null so that the garbage collector will remove it
+		targetNode.prev = null;
+		targetNode.next = null;
+		targetNode = null;
+		size--;
+		
+		return removedValue;
+	}
 	
-	//TODO: removeとclearとcontainsとequalsを実装する
 	
 	@Override
 	public String toString() {
