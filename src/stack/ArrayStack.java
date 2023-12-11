@@ -77,6 +77,14 @@ public class ArrayStack <T>{
 		return elements[size - 1];
 	}
 	
+	/**
+	 * 
+	 * @return {@code true} if internal array is empty
+	 */
+	public boolean isEmpty() {
+		return size == 0;
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";

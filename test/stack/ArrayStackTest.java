@@ -80,4 +80,16 @@ class ArrayStackTest {
 			assertThrows(NoSuchElementException.class, () -> {emptyStack.peek();});
 		}
 	}
+	
+	@Nested
+	class isEmptyTests {
+		@Test
+		void isEmptyToEmptyStack() {
+			assertTrue(emptyStack.isEmpty());
+		}
+		@Test
+		void isEmptyToNonEmptyStack() {
+			assertFalse(nonEmptyStack.isEmpty());
+		}
+	}
 }
