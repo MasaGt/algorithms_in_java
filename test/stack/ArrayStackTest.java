@@ -2,6 +2,8 @@ package stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -48,6 +50,20 @@ class ArrayStackTest {
 			fullStack.push(11);
 			fullStack.push(12);
 			assertEquals("12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1", fullStack.toString());
+		}
+	}
+	
+	@Nested
+	class PopTests {
+		@Test
+		void popFromNonEmptyStack() {
+			String result = nonEmptyStack.pop();
+			assertEquals("World", result);
+			assertEquals("Hello", nonEmptyStack.toString());
+		}
+		@Test
+		void popFromEmptyStack() {
+			assertThrows(NoSuchElementException.class, () -> {emptyStack.pop();});
 		}
 	}
 }

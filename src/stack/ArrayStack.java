@@ -2,6 +2,7 @@ package stack;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayStack <T>{
 	private T[] elements;
@@ -39,7 +40,7 @@ public class ArrayStack <T>{
 	}
 	
 	/**
-	 * expand internal member size
+	 * expand internal array member variable
 	 */
 	@SuppressWarnings("unchecked")
 	private void expandCapacity() {
@@ -48,6 +49,20 @@ public class ArrayStack <T>{
 			newElements[i] = elements[i];
 		}
 		elements = newElements;
+	}
+	
+	/**
+	 * 
+	 * @return value at the top of this stacks
+	 */
+	public T pop() {
+		if (size <= 0) {
+			throw new NoSuchElementException();
+		}
+		T poppedItem = elements[size - 1];
+		elements[size - 1] = null;
+		size--;
+		return poppedItem;
 	}
 	
 	@Override
