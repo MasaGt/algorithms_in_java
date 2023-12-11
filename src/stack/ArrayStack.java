@@ -1,7 +1,5 @@
 package stack;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ArrayStack <T>{
@@ -114,6 +112,22 @@ public class ArrayStack <T>{
 			}
 		}
 		return false;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof ArrayStack)) {
+			return false;
+		}
+		
+		ArrayStack<T> target = (ArrayStack<T>)obj;
+		for (int i = 0; i < size; i++) {
+			if (elements[i] != target.elements[i]) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	@Override

@@ -127,4 +127,22 @@ class ArrayStackTest {
 			assertFalse(nonEmptyStack.contains(msg));
 		}
 	}
+	
+	@Nested
+	class EqualsTests {
+		@Test
+		void hasEquivalentItems() {
+			ArrayStack<String> target = new ArrayStack<String>();
+			target.push("Hello");
+			target.push("World");
+			assertTrue(nonEmptyStack.equals(target));
+		}
+		@Test
+		void haveDifferentItems() {
+			ArrayStack<String> target = new ArrayStack<String>();
+			target.push("Test");
+			target.push("World");
+			assertFalse(nonEmptyStack.equals(target));
+		}
+	}
 }
