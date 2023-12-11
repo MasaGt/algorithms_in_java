@@ -93,6 +93,14 @@ public class ArrayStack <T>{
 		return size;
 	}
 	
+//	contains, clear, equals書けば終わり
+	public void clear() {
+		int repeateNum = size;
+		for (int i = 0; i < repeateNum; i++) {
+			pop();
+		}
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";

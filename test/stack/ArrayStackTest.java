@@ -104,4 +104,13 @@ class ArrayStackTest {
 			assertEquals(10, fullStack.size());
 		}
 	}
+	
+	@Nested
+	class ClearTests{
+		@Test
+		void clear() {
+			nonEmptyStack.clear();
+			assertEquals("", nonEmptyStack.toString());
+		}
+	}
 }
