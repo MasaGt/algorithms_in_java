@@ -92,4 +92,12 @@ class ArrayStackTest {
 			assertFalse(nonEmptyStack.isEmpty());
 		}
 	}
+	
+	@Nested
+	class sizeTests {
+		@Test
+		void sizeOfFullStack() {
+			assertEquals(10, fullStack.size());
+		}
+	}
 }

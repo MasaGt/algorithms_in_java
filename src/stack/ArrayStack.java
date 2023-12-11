@@ -85,6 +85,14 @@ public class ArrayStack <T>{
 		return size == 0;
 	}
 	
+	/**
+	 * 
+	 * @return the size of internal array
+	 */
+	public int size() {
+		return size;
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";
