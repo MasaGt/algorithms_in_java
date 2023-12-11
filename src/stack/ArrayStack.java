@@ -94,9 +94,11 @@ public class ArrayStack <T>{
 	}
 	
 //	contains, clear, equals書けば終わり
+	/**
+	 * remove all the items from this stack
+	 */
 	public void clear() {
-		int repeateNum = size;
-		for (int i = 0; i < repeateNum; i++) {
+		for(int i = 0, rep = size; i < rep; i++) {
 			pop();
 		}
 	}
