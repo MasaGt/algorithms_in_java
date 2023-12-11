@@ -93,7 +93,6 @@ public class ArrayStack <T>{
 		return size;
 	}
 	
-//	contains, clear, equals書けば終わり
 	/**
 	 * remove all the items from this stack
 	 */
@@ -103,6 +102,11 @@ public class ArrayStack <T>{
 		}
 	}
 	
+	/**
+	 * 
+	 * @param target
+	 * @return {@code true} if this stack have the equivalent item
+	 */
 	public boolean contains(T target) {
 		for (T item: elements) {
 			if (item == target) {
