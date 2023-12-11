@@ -66,4 +66,18 @@ class ArrayStackTest {
 			assertThrows(NoSuchElementException.class, () -> {emptyStack.pop();});
 		}
 	}
+	
+	@Nested
+	class peekTests {
+		@Test
+		void peekAtNonEmptyStack() {
+			String result = nonEmptyStack.peek();
+			assertEquals("World", result);
+			assertEquals("World, Hello", nonEmptyStack.toString());
+		}
+		@Test
+		void peekAtEmptyStack() {
+			assertThrows(NoSuchElementException.class, () -> {emptyStack.peek();});
+		}
+	}
 }

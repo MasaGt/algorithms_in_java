@@ -52,8 +52,9 @@ public class ArrayStack <T>{
 	}
 	
 	/**
-	 * 
-	 * @return value at the top of this stacks
+	 * remove the item at the top of this stack
+	 * @return removed item
+	 * @throws NoSuchElementException if this stack is empty
 	 */
 	public T pop() {
 		if (size <= 0) {
@@ -63,6 +64,17 @@ public class ArrayStack <T>{
 		elements[size - 1] = null;
 		size--;
 		return poppedItem;
+	}
+	
+	/**
+	 * return the item at the top of this stack
+	 * @return
+	 */
+	public T peek() {
+		if (size <= 0) {
+			throw new NoSuchElementException();
+		}
+		return elements[size - 1];
 	}
 	
 	@Override
