@@ -113,4 +113,18 @@ class ArrayStackTest {
 			assertEquals("", nonEmptyStack.toString());
 		}
 	}
+	
+	@Nested
+	class ContainsTests {
+		@Test
+		void continas() {
+			String msg = "Hello";
+			assertTrue(nonEmptyStack.contains(msg));
+		}
+		@Test
+		void notContains() {
+			String msg = "stack";
+			assertFalse(nonEmptyStack.contains(msg));
+		}
+	}
 }

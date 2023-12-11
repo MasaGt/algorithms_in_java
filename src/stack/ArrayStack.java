@@ -101,6 +101,15 @@ public class ArrayStack <T>{
 		}
 	}
 	
+	public boolean contains(T target) {
+		for (T item: elements) {
+			if (item == target) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";
