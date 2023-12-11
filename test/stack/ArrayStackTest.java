@@ -39,6 +39,7 @@ class ArrayStackTest {
 		void push() {
 			emptyStack.push(1);
 			assertEquals("1", emptyStack.toString());
+			assertEquals(1, emptyStack.size());
 		}
 		@Test
 		void pushToNonEmptyStack() {
@@ -50,6 +51,7 @@ class ArrayStackTest {
 			fullStack.push(11);
 			fullStack.push(12);
 			assertEquals("12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1", fullStack.toString());
+			assertEquals(12, fullStack.size());
 		}
 	}
 	
@@ -60,6 +62,7 @@ class ArrayStackTest {
 			String result = nonEmptyStack.pop();
 			assertEquals("World", result);
 			assertEquals("Hello", nonEmptyStack.toString());
+			assertEquals(1, nonEmptyStack.size());
 		}
 		@Test
 		void popFromEmptyStack() {
@@ -74,6 +77,7 @@ class ArrayStackTest {
 			String result = nonEmptyStack.peek();
 			assertEquals("World", result);
 			assertEquals("World, Hello", nonEmptyStack.toString());
+			assertEquals(2, nonEmptyStack.size());
 		}
 		@Test
 		void peekAtEmptyStack() {
