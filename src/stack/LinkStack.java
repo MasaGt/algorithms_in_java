@@ -19,6 +19,11 @@ public class LinkStack<T> {
 		}
 	}
 	
+	
+	public void push(T value) {
+		elements.addFirst(value);
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";

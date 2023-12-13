@@ -2,22 +2,39 @@ package stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class LinkStackTest {
 
+	private LinkStack<String> emptyStack;
+	private LinkStack<Integer> nonEmptyStack;
+	
+	@BeforeEach
+	void prep() {
+		emptyStack = new LinkStack<String>();
+		nonEmptyStack = new LinkStack<Integer>(new Integer[] {1, 5 ,10});
+	}
+	
 	@Nested
 	class InitTest {
 		@Test
 		void initEmptyStack() {
-			LinkStack<String> emptyStack = new LinkStack<String>();
 			assertEquals("", emptyStack.toString());
 		}
 		@Test
 		void initNonEmptyStack() {
-			LinkStack<Integer> nonEmptyStack = new LinkStack<Integer>(new Integer[] {1, 5 ,10});
 			assertEquals("10, 5, 1", nonEmptyStack.toString());
+		}
+	}
+	
+	@Nested
+	class pushTests {
+		@Test
+		void push() {
+			nonEmptyStack.push(100);
+			assertEquals("100, 10, 5, 1", nonEmptyStack.toString());
 		}
 	}
 }
