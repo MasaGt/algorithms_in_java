@@ -35,6 +35,15 @@ public class LinkStack<T> {
 		return elements.removeFirst();
 	}
 	
+	/**
+	 * return the value at the top of this stack but not remove the value
+	 * @return
+	 * @throws NoSuchElementException
+	 */
+	public T peek() throws NoSuchElementException {
+		return elements.getFirst();
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";

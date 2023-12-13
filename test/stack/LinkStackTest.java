@@ -53,4 +53,17 @@ public class LinkStackTest {
 			assertEquals("5, 1", nonEmptyStack.toString());
 		}
 	}
+	
+	@Nested
+	class PeekTests {
+		@Test
+		void peekAtNonEmptyStack() {
+			assertEquals(10, nonEmptyStack.peek());
+			assertEquals("10, 5, 1", nonEmptyStack.toString());
+		}
+		@Test
+		void peekAtEmptyStack() {
+			assertThrows(NoSuchElementException.class, () -> { emptyStack.peek(); });
+		}
+	}
 }
