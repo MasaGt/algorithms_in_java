@@ -1,7 +1,9 @@
 package stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.NoSuchElementException;
 
@@ -64,6 +66,18 @@ public class LinkStackTest {
 		@Test
 		void peekAtEmptyStack() {
 			assertThrows(NoSuchElementException.class, () -> { emptyStack.peek(); });
+		}
+	}
+	
+	@Nested
+	class IsEmptyTests {
+		@Test
+		void isEmptyToEmptyStack() {
+			assertTrue(emptyStack.isEmpty());
+		}
+		@Test
+		void isEmptyToNonEmptyStack() {
+			assertFalse(nonEmptyStack.isEmpty());
 		}
 	}
 }

@@ -54,6 +54,14 @@ public class LinkStack<T> {
 		return elements.getFirst();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return elements.isEmpty();
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";
