@@ -93,6 +93,19 @@ public class LinkStack<T> {
 		return elements.contains(value);
 	}
 	
+	/**
+	 * return the number of items of this stack
+	 * @return
+	 */
+	public int size() {
+		return elements.size();
+	}
+	
+	/**
+	 * return the contents of this stack in String
+	 * format: each item is separated by comma
+	 * @return the contents of this stack
+	 */
 	@Override
 	public String toString() {
 		String contents = "";

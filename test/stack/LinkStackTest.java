@@ -121,4 +121,13 @@ public class LinkStackTest {
 			assertFalse(nonEmptyStack.equals(targetStack));
 		}
 	}
+	
+	@Nested
+	class sizeTests {
+		@Test
+		void sizeOfNonEmptyList() {
+			nonEmptyStack.push(100);
+			assertEquals(4, nonEmptyStack.size());
+		}
+	}
 }
