@@ -80,4 +80,13 @@ public class LinkStackTest {
 			assertFalse(nonEmptyStack.isEmpty());
 		}
 	}
+	
+	@Nested
+	class ClearTests{
+		@Test
+		void clear() {
+			nonEmptyStack.clear();
+			assertEquals("", nonEmptyStack.toString());
+		}
+	}
 }

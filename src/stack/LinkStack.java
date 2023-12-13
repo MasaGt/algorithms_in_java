@@ -62,6 +62,13 @@ public class LinkStack<T> {
 		return elements.isEmpty();
 	}
 	
+	/**
+	 * remove all the value from this stack
+	 */
+	public void clear() {
+		elements.clear();
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";
