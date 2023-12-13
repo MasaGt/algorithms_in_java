@@ -3,6 +3,7 @@ package stack;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class LinkStack<T> {
 	
@@ -22,6 +23,16 @@ public class LinkStack<T> {
 	
 	public void push(T value) {
 		elements.addFirst(value);
+	}
+	
+	/**
+	 * return the value at the top of this stack
+	 * @return 
+	 * @throws NoSuchElementException
+	 * @throws UnsupportedOperationException
+	 */
+	public T pop() throws NoSuchElementException, UnsupportedOperationException {
+		return elements.removeFirst();
 	}
 	
 	@Override
