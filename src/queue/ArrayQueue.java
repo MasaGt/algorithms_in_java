@@ -14,10 +14,13 @@ public class ArrayQueue<T> implements Queue<T> {
 		items = (T[])new Object[INIT_SIZE];
 		size = 0;
 	}
-	
-	public ArrayQueue(T[] paramas) {
+	/**
+	 * initialize an queue based on the arguments
+	 * @param params
+	 */
+	public ArrayQueue(T[] params) {
 		this();
-		for (T item: paramas) {
+		for (T item: params) {
 			enqueue(item);
 		}
 	}
