@@ -89,4 +89,36 @@ public class LinkStackTest {
 			assertEquals("", nonEmptyStack.toString());
 		}
 	}
+	
+	@Nested
+	class ContainsTests {
+		@Test
+		void contains() {
+			assertTrue(nonEmptyStack.contains(1));
+		}
+		@Test
+		void notContains() {
+			assertFalse(nonEmptyStack.contains(0));
+		}
+	}
+	
+	@Nested
+	class EqualsTests {
+		@Test
+		void hasEquivalentItems() {
+			LinkStack<Integer> targetStack = new LinkStack<Integer>();
+			targetStack.push(1);
+			targetStack.push(5);
+			targetStack.push(10);
+			assertTrue(nonEmptyStack.equals(targetStack));
+		}
+		@Test
+		void haveDifferentItems() {
+			LinkStack<Integer> targetStack = new LinkStack<Integer>();
+			targetStack.push(0);
+			targetStack.push(5);
+			targetStack.push(10);
+			assertFalse(nonEmptyStack.equals(targetStack));
+		}
+	}
 }

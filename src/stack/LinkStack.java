@@ -69,6 +69,30 @@ public class LinkStack<T> {
 		elements.clear();
 	}
 	
+	/**
+	 * return true is passed object is an instance of this class and has equivalent elements 
+	 * @param obj another stack instance
+	 * @return {@code true} if obj is an instance of this and has equivalent elements
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof LinkStack)) {
+			return false;
+		}
+		LinkStack<T> target = (LinkStack<T>)obj;
+		return elements.equals(target.elements);
+	}
+	
+	/**
+	 * 
+	 * @param value
+	 * @return {@code true} if this stack has the specified item
+	 */
+	public boolean contains(T value) {
+		return elements.contains(value);
+	}
+	
 	@Override
 	public String toString() {
 		String contents = "";
