@@ -25,11 +25,23 @@ public class ArrayQueue<T> implements Queue<T> {
 	@Override
 	public void enqueue(T item) {
 		if (size >= items.length) {
-			// TODO: replace return with expandCapacity()
-			return;
+			expandCapacity();
 		}
 		items[size] = item;
 		size++;
+	}
+	
+	/**
+	 * create new larger array that is two times longer than the inner array (items)
+	 * and replace the inner array with it
+	 */
+	private void expandCapacity() {
+		@SuppressWarnings("unchecked")
+		T[] newArray =(T[]) new Object[items.length * 2];
+		for (int i = 0; i < items.length; i++) {
+			newArray[i] = items[i];
+		}
+		items = newArray;
 	}
 	
 	@Override
