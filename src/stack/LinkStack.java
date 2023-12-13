@@ -41,7 +41,7 @@ public class LinkStack<T> {
 	 * @throws NoSuchElementException
 	 * @throws UnsupportedOperationException
 	 */
-	public T pop() throws NoSuchElementException, UnsupportedOperationException {
+	public T pop() throws NoSuchElementException {
 		return elements.removeFirst();
 	}
 	
