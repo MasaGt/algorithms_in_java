@@ -9,10 +9,17 @@ public class LinkStack<T> {
 	
 	private List<T> elements;
 	
+	/**
+	 * initialize an empty stack
+	 */
 	public LinkStack() {
 		elements = new LinkedList<T>();
 	}
 	
+	/**
+	 * initialize a stack with the arguments
+	 * @param values
+	 */
 	public LinkStack(T[] values) {
 		this();
 		for (T val : values) {
@@ -20,13 +27,16 @@ public class LinkStack<T> {
 		}
 	}
 	
-	
+	/**
+	 * push the value at the top of this stack
+	 * @param value
+	 */
 	public void push(T value) {
 		elements.addFirst(value);
 	}
 	
 	/**
-	 * return the value at the top of this stack
+	 * return and remove the value at the top of this stack
 	 * @return 
 	 * @throws NoSuchElementException
 	 * @throws UnsupportedOperationException
