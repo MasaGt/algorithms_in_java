@@ -61,6 +61,19 @@ public class ArrayQueue<T> implements Queue<T> {
 		items = newArray;
 	}
 	
+	@Override
+	public T dequeue() {
+		if (size <= 0) {
+			throw new NoSuchElementException();
+		}
+		T dequeuedItem = items[headIndex];
+		items[headIndex] = null;
+		// increment head index
+		headIndex = (headIndex+1) % items.length;
+		size--;
+		return dequeuedItem;
+	}
+	
 	/**
 	 * return the size of this queue
 	 * @return
