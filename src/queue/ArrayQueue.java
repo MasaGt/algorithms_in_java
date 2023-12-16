@@ -82,10 +82,7 @@ public class ArrayQueue<T> implements Queue<T> {
 		return items[headIndex];
 	}
 	
-	/**
-	 * return the size of this queue
-	 * @return
-	 */
+	@Override
 	public int size() {
 		return size;
 	}

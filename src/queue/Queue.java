@@ -20,4 +20,9 @@ public interface Queue<T> {
 	 * @return
 	 */
 	public T peek();
+	
+	/**
+	 * return the size of this queue
+	 */
+	public int size();
 }
