@@ -1,5 +1,6 @@
 package queue;
 
+
 public interface Queue<T> {
 	
 	/**
@@ -7,4 +8,16 @@ public interface Queue<T> {
 	 * @param item
 	 */
 	public void enqueue(T item);
+	
+	/**
+	 * return and remove the item at the head of this queue
+	 * @return
+	 */
+	public T dequeue();
+	
+	/**
+	 * return the item at the head of this queue
+	 * @return
+	 */
+	public T peek();
 }
