@@ -97,6 +97,12 @@ public class ArrayQueue<T> implements Queue<T> {
 	}
 	
 	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
 	public String toString() {
 		String contents = "";
 		for (int i = 0; i < size; i++) {
