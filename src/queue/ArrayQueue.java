@@ -74,6 +74,14 @@ public class ArrayQueue<T> implements Queue<T> {
 		return dequeuedItem;
 	}
 	
+	@Override
+	public T peek() {
+		if (size <= 0) {
+			throw new NoSuchElementException();
+		}
+		return items[headIndex];
+	}
+	
 	/**
 	 * return the size of this queue
 	 * @return
