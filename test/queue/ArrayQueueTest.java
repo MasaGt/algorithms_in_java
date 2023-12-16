@@ -103,4 +103,16 @@ class ArrayQueueTest {
 			assertTrue(nonEmptyQueue.isEmpty());
 		}
 	}
+	
+	@Nested
+	class ContainsTests {
+		@Test
+		void continasEquivalentItem() {
+			assertTrue(nonEmptyQueue.contains(1));
+		}
+		@Test
+		void notContainsEquivalentItem() {
+			assertFalse(nonEmptyQueue.contains(0));
+		}
+	}
 }

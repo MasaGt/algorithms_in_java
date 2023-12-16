@@ -103,6 +103,12 @@ public class ArrayQueue<T> implements Queue<T> {
 	
 	@Override
 	public boolean contains(T target) {
+		Iterator<T> itr =iterator();
+		while (itr.hasNext()) {
+			if (target.equals(itr.next())) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
