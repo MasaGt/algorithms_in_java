@@ -74,4 +74,20 @@ class ArrayQueueTest {
 			assertThrows(NoSuchElementException.class, () -> { emptyQueue.peek(); });
 		}
 	}
+	
+	@Nested
+	class ClearTests {
+		@Test
+		void clearNonEmptyQueue() {
+			nonEmptyQueue.clear();
+			assertEquals("", nonEmptyQueue.toString());
+			assertEquals(0, nonEmptyQueue.size());
+		}
+		@Test
+		void clearEmptyQueue() {
+			emptyQueue.clear();
+			assertEquals("", emptyQueue.toString());
+			assertEquals(0, emptyQueue.size());
+		}
+	}
 }

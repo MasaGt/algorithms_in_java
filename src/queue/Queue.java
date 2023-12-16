@@ -25,4 +25,9 @@ public interface Queue<T> {
 	 * return the size of this queue
 	 */
 	public int size();
+	
+	/**
+	 * remove all the items from this queue
+	 */
+	public void clear();
 }

@@ -82,6 +82,15 @@ public class ArrayQueue<T> implements Queue<T> {
 		return items[headIndex];
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void clear() {
+		items = (T[])new Object[INIT_SIZE];
+		headIndex = 0;
+		tailIndex = 0;
+		size = 0;
+	}
+	
 	@Override
 	public int size() {
 		return size;
