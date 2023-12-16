@@ -58,6 +58,7 @@ class ArrayQueueTest {
 		void dequeueFromNonEmptyQueue() {
 			assertEquals(1, nonEmptyQueue.dequeue());
 			assertEquals(2, nonEmptyQueue.size());
+			assertEquals("5, 10", nonEmptyQueue.toString());
 		}
 		@Test
 		void dequeueFromEmptyQueue() {

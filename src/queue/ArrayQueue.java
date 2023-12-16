@@ -19,7 +19,7 @@ public class ArrayQueue<T> implements Queue<T> {
 		items = (T[])new Object[INIT_SIZE];
 		size = 0;
 		headIndex = 0;
-		tailIndex = 0;
+		tailIndex = -1;
 	}
 	/**
 	 * initialize an queue based on the arguments
@@ -56,8 +56,8 @@ public class ArrayQueue<T> implements Queue<T> {
 			newArray[cursor++] = itr.next();
 		}
 		headIndex = 0;
-		tailIndex = cursor;
-		size = tailIndex;
+		tailIndex = cursor - 1;
+		size = cursor;
 		items = newArray;
 	}
 	
@@ -137,9 +137,12 @@ public class ArrayQueue<T> implements Queue<T> {
 	@Override
 	public String toString() {
 		String contents = "";
-		for (int i = 0; i < size; i++) {
+		Iterator<T> itr = iterator();
+		int cnt = 0;
+		while(itr.hasNext()) {
 			// put , between items
-			contents += i != (size - 1) ? items[i] + ", " : items[i];
+			contents += cnt != size() -1 ? itr.next().toString() + ", " : itr.next().toString();
+			cnt++;
 		}
 		return contents;
 	}
