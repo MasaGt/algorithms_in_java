@@ -40,7 +40,7 @@ class ArrayQueueTest {
 			assertEquals("Test", emptyQueue.toString());
 		}
 		@Test
-		void pushMoreThanInitizalArraySize() {
+		void pushMoreThanInitialArraySize() {
 			Queue<Integer> fullQueue = new ArrayQueue<Integer>(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 			fullQueue.enqueue(11);
 			assertEquals("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11", fullQueue.toString());
