@@ -1,7 +1,7 @@
 package queue;
 
 
-public interface Queue<T> {
+public interface Queue<T> extends Iterable<T>{
 	
 	/**
 	 * add new item at the end of this queue
@@ -44,4 +44,11 @@ public interface Queue<T> {
 	 * @return true if this queue has equivalent item to target. otherwise, false.
 	 */
 	public boolean contains(T target);
+	
+	/**
+	 * check if all the items of the passed queue are equals to all the items of this queue
+	 * @param obj
+	 * @return true if obj has the same items in the same order as this queue
+	 */
+	public boolean equals(Object obj);
 }
