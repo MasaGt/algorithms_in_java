@@ -98,8 +98,7 @@ public class ArrayQueue<T> implements Queue<T> {
 	
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size() == 0;
 	}
 	
 	@Override

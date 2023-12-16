@@ -90,4 +90,17 @@ class ArrayQueueTest {
 			assertEquals(0, emptyQueue.size());
 		}
 	}
+	
+	@Nested
+	class IsEmptyTests {
+		@Test
+		void isEmptyToNonEmptyQueue() {
+			assertFalse(nonEmptyQueue.isEmpty());
+		}
+		@Test
+		void isEmptyToEmptyQueue() {
+			nonEmptyQueue.clear();
+			assertTrue(nonEmptyQueue.isEmpty());
+		}
+	}
 }
