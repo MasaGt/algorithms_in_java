@@ -37,4 +37,11 @@ public interface Queue<T> {
 	 * @return true if the size is 0. otherwise, false.
 	 */
 	public boolean isEmpty();
+	
+	/**
+	 * check if this queue has a equivalent item to the target.
+	 * @param target
+	 * @return true if this queue has equivalent item to target. otherwise, false.
+	 */
+	public boolean contains(T target);
 }
