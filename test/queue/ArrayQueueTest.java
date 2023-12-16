@@ -38,12 +38,14 @@ class ArrayQueueTest {
 		void push() {
 			emptyQueue.enqueue("Test");
 			assertEquals("Test", emptyQueue.toString());
+			assertEquals(1, emptyQueue.size());
 		}
 		@Test
 		void pushMoreThanInitialArraySize() {
 			Queue<Integer> fullQueue = new ArrayQueue<Integer>(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
 			fullQueue.enqueue(11);
 			assertEquals("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11", fullQueue.toString());
+			assertEquals(11, fullQueue.size());
 		}
 	}
 	
@@ -51,8 +53,8 @@ class ArrayQueueTest {
 	class DequeueTests {
 		@Test
 		void dequeueFromNonEmptyQueue() {
-			Integer result = nonEmptyQueue.dequeue();
-			assertEquals(1, result);
+			assertEquals(1, nonEmptyQueue.dequeue());
+			assertEquals(2, nonEmptyQueue.size());
 		}
 		@Test
 		void dequeueFromEmptyQueue() {
@@ -65,6 +67,7 @@ class ArrayQueueTest {
 		@Test
 		void peekAtNonEmptyQueue() {
 			assertEquals(1, nonEmptyQueue.peek());
+			assertEquals(3, nonEmptyQueue.size());
 		}
 		@Test
 		void peekAtEmptyQueue() {
