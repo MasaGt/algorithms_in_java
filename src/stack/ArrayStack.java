@@ -115,7 +115,7 @@ public class ArrayStack <T> implements Stack<T>{
 	@Override
 	public boolean contains(T target) {
 		for (T item: elements) {
-			if (item == target) {
+			if (item.equals(target)) {
 				return true;
 			}
 		}
@@ -125,13 +125,19 @@ public class ArrayStack <T> implements Stack<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof ArrayStack)) {
-			return false;
-		}
+		// type check
+		if (!(obj instanceof Stack)) return false;
+		if (this == obj) return true;
 		
-		ArrayStack<T> target = (ArrayStack<T>)obj;
-		for (int i = 0; i < size; i++) {
-			if (elements[i] != target.elements[i]) {
+		Stack<T> target = (ArrayStack<T>)obj;
+		// size check
+		if (size() != target.size()) return false;	
+		
+		// contents check
+		Iterator<T> targetItr = target.iterator();
+		Iterator<T> itr = iterator();
+		while (itr.hasNext()) {
+			if (!(itr.next().equals(targetItr.next()))) {
 				return false;
 			}
 		}
@@ -152,25 +158,40 @@ public class ArrayStack <T> implements Stack<T>{
 
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Itr();
 	}
 	
 	/**
 	 * the inner Iterator class to iterate over the stack
 	 */
 	class Itr implements Iterator<T> {
-
-		@Override
-		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
+		
+		int cursor;
+		int remaining;
+		
+		public Itr() {
+			cursor = 0;
+			remaining = size();
 		}
 
+		/**
+		 * 
+		 * @return true if there is a next item
+		 */
+		@Override
+		public boolean hasNext() {
+			return remaining > 0;
+		}
+
+		/**
+		 * 
+		 * @return next item of this stack
+		 */
 		@Override
 		public T next() {
-			// TODO Auto-generated method stub
-			return null;
+			if (remaining <= 0) throw new NoSuchElementException();
+			remaining--;
+			return elements[cursor++];
 		}
 		
 	}

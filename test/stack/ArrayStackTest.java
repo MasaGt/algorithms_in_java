@@ -146,5 +146,13 @@ class ArrayStackTest {
 			target.push("World");
 			assertFalse(nonEmptyStack.equals(target));
 		}
+		@Test
+		void hasEquivalentItemsButLonger() {
+			ArrayStack<String> target = new ArrayStack<String>();
+			target.push("Hello");
+			target.push("World");
+			target.push("Test");
+			assertFalse(nonEmptyStack.equals(target));
+		}
 	}
 }
