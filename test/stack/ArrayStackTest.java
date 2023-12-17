@@ -45,6 +45,7 @@ class ArrayStackTest {
 		void pushToNonEmptyStack() {
 			nonEmptyStack.push("new item");
 			assertEquals("new item, World, Hello", nonEmptyStack.toString());
+			assertEquals(3, nonEmptyStack.size());
 		}
 		@Test
 		void pushManyValue() {
@@ -111,6 +112,7 @@ class ArrayStackTest {
 		void clear() {
 			nonEmptyStack.clear();
 			assertEquals("", nonEmptyStack.toString());
+			assertEquals(0, nonEmptyStack.size());
 		}
 	}
 	
