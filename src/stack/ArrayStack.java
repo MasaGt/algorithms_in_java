@@ -1,8 +1,9 @@
 package stack;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayStack <T>{
+public class ArrayStack <T> implements Stack<T>{
 	private T[] elements;
 	private int size;
 	private final int INITIAL_SIZE = 10;
@@ -30,7 +31,9 @@ public class ArrayStack <T>{
 	/**
 	 * add the element at the end of array;
 	 */
+	@Override
 	public void push(T item) {
+		// TODO: fix bug INITIAL_SIZE is not appropriate for this condition. change it to elements.length
 		if (size >= INITIAL_SIZE) {
 			expandCapacity();
 		}
@@ -54,6 +57,7 @@ public class ArrayStack <T>{
 	 * @return removed item
 	 * @throws NoSuchElementException if this stack is empty
 	 */
+	@Override
 	public T pop() {
 		if (size <= 0) {
 			throw new NoSuchElementException();
@@ -68,6 +72,7 @@ public class ArrayStack <T>{
 	 * return the item at the top of this stack
 	 * @return
 	 */
+	@Override
 	public T peek() {
 		if (size <= 0) {
 			throw new NoSuchElementException();
@@ -79,6 +84,7 @@ public class ArrayStack <T>{
 	 * 
 	 * @return {@code true} if internal array is empty
 	 */
+	@Override
 	public boolean isEmpty() {
 		return size == 0;
 	}
@@ -87,6 +93,7 @@ public class ArrayStack <T>{
 	 * 
 	 * @return the size of internal array
 	 */
+	@Override
 	public int size() {
 		return size;
 	}
@@ -94,6 +101,7 @@ public class ArrayStack <T>{
 	/**
 	 * remove all the items from this stack
 	 */
+	@Override
 	public void clear() {
 		for(int i = 0, rep = size; i < rep; i++) {
 			pop();
@@ -105,6 +113,7 @@ public class ArrayStack <T>{
 	 * @param target
 	 * @return {@code true} if this stack have the equivalent item
 	 */
+	@Override
 	public boolean contains(T target) {
 		for (T item: elements) {
 			if (item == target) {
@@ -140,5 +149,30 @@ public class ArrayStack <T>{
 			}
 		}
 		return contents;
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * the inner Iterator class to iterate over the stack
+	 */
+	class Itr implements Iterator<T> {
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public T next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 	}
 }
