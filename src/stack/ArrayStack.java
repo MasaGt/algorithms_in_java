@@ -114,8 +114,9 @@ public class ArrayStack <T> implements Stack<T>{
 	 */
 	@Override
 	public boolean contains(T target) {
-		for (T item: elements) {
-			if (item.equals(target)) {
+		Iterator<T> itr = iterator();
+		while (itr.hasNext()) {
+			if (target.equals(itr.next())) {
 				return true;
 			}
 		}

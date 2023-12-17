@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 
 class ArrayStackTest {
 
-	private ArrayStack<Integer> emptyStack;
-	private ArrayStack<String> nonEmptyStack;
-	private ArrayStack<Integer> fullStack;
+	private Stack<Integer> emptyStack;
+	private Stack<String> nonEmptyStack;
+	private Stack<Integer> fullStack;
 	
 	@BeforeEach
 	void prep() {
