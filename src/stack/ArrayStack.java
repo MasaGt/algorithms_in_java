@@ -33,8 +33,7 @@ public class ArrayStack <T> implements Stack<T>{
 	 */
 	@Override
 	public void push(T item) {
-		// TODO: fix bug INITIAL_SIZE is not appropriate for this condition. change it to elements.length
-		if (size >= INITIAL_SIZE) {
+		if (size >= elements.length) {
 			expandCapacity();
 		}
 		elements[size++] = item;
@@ -101,11 +100,11 @@ public class ArrayStack <T> implements Stack<T>{
 	/**
 	 * remove all the items from this stack
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void clear() {
-		for(int i = 0, rep = size; i < rep; i++) {
-			pop();
-		}
+		size = 0;
+		elements = (T[])(new Object[INITIAL_SIZE]);
 	}
 	
 	/**
