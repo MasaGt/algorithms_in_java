@@ -155,4 +155,55 @@ class ArrayStackTest {
 			assertFalse(nonEmptyStack.equals(target));
 		}
 	}
+	
+	@Nested
+	class Operations {
+		@Test
+		void operationsToEmptyStringStack() {
+			//push
+			Stack<String> stack = new ArrayStack<String>();
+			String world = "World";
+			stack.push(world);
+			String hello = "Hello";
+			stack.push(hello);
+			assertEquals(hello + ", " + world, stack.toString());
+			assertEquals(2, stack.size());
+			//pop
+			String result = stack.pop();
+			assertEquals(hello, result);
+			assertEquals(world, stack.toString());
+			assertEquals(1, stack.size());
+			//another push
+			String test = "Test";
+			stack.push(test);
+			assertEquals(test + ", " + world , stack.toString()); 
+			assertEquals(2, stack.size());
+			//peek
+			result = stack.peek();
+			assertEquals(test, result);
+			assertEquals(test + ", " + world , stack.toString()); 
+			assertEquals(2, stack.size());
+			//containes
+			assertTrue(stack.contains("Test"));
+			assertFalse(stack.contains("test"));
+			//equals
+			Stack<String> newStack = new ArrayStack<String>(new String[] {"World"});
+			newStack.push("Test");
+			assertTrue(stack.equals(newStack));
+			newStack.push(test);
+			assertFalse(stack.equals(newStack));
+			//clear
+			stack.clear();
+			assertEquals("", stack.toString());
+			assertEquals(0, stack.size());
+			//expand size
+			String contents = "";
+			for (int i = 0; i < 25; i++) {
+				contents += (i != 24) ? Math.abs(i - 24) + ", " : Math.abs(i - 24);
+				stack.push(Integer.toString(i));
+			}
+			assertEquals(contents, stack.toString());
+			assertEquals(25, stack.size());
+		}
+	}
 }
