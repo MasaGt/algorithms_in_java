@@ -48,14 +48,12 @@ public class LinkQueue<T> implements Queue<T> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		elements.clear();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return elements.isEmpty();
 	}
 
 	@Override
