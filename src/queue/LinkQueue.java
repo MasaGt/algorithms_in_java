@@ -26,7 +26,7 @@ public class LinkQueue<T> implements Queue<T> {
 	
 	@Override
 	public void enqueue(T item) {
-		// TODO Auto-generated method stub
+		elements.add(item);
 		
 	}
 
@@ -44,8 +44,7 @@ public class LinkQueue<T> implements Queue<T> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return elements.size();
 	}
 
 	@Override
