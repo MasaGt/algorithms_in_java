@@ -12,11 +12,14 @@ class LinkQueueTest {
 	
 	private LinkQueue<String> emptyQueue;
 	LinkQueue<Integer> nonEmptyQueue;
+	// queue for the comparison of equals() to nonEmptyQueue
+	Queue<Integer> targetQueue;
 
 	@BeforeEach
 	void prep() {
 		emptyQueue = new LinkQueue<String>();
 		nonEmptyQueue = new LinkQueue<Integer>(new Integer[] {1, 5, 10});
+		targetQueue = new ArrayQueue<Integer>();
 	}
 	
 	@Nested
@@ -103,6 +106,32 @@ class LinkQueueTest {
 		@Test
 		void notContainsEquivalentItem() {
 			assertFalse(nonEmptyQueue.contains(0));
+		}
+	}
+	
+	@Nested
+	class EqualsTests {
+		@Test
+		void hasEquivalentItems() {
+			targetQueue.enqueue(1);
+			targetQueue.enqueue(5);
+			targetQueue.enqueue(10);
+			assertTrue(nonEmptyQueue.equals(targetQueue));
+		}
+		@Test
+		void hasDifferentItems() {
+			targetQueue.enqueue(1);
+			targetQueue.enqueue(5);
+			targetQueue.enqueue(0);
+			assertFalse(nonEmptyQueue.equals(targetQueue));
+		}
+		@Test
+		void hasEquivalenyItemsButLonger() {
+			targetQueue.enqueue(1);
+			targetQueue.enqueue(5);
+			targetQueue.enqueue(10);
+			targetQueue.enqueue(10);
+			assertFalse(nonEmptyQueue.equals(targetQueue));
 		}
 	}
 }
