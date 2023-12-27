@@ -134,4 +134,38 @@ class LinkQueueTest {
 			assertFalse(nonEmptyQueue.equals(targetQueue));
 		}
 	}
+	
+	@Nested
+	class Operations {
+		@Test
+		void operationsToEmptyQueue() {
+			// enqueue and dequeue
+			emptyQueue.enqueue("Hello");
+			emptyQueue.enqueue("World");
+			assertEquals("Hello, World", emptyQueue.toString());
+			
+			emptyQueue.dequeue();
+			emptyQueue.enqueue("Test");
+			assertEquals("World, Test", emptyQueue.toString());
+						
+			assertEquals("World", emptyQueue.peek());
+			assertEquals(2, emptyQueue.size());
+						
+			// contains and equals
+			assertTrue(emptyQueue.contains("Test"));
+			assertFalse(emptyQueue.contains("test"));
+						
+			Queue<String> newQueue = new ArrayQueue<String>();
+			newQueue.enqueue("World");
+			newQueue.enqueue("Test");
+			assertTrue(emptyQueue.equals(newQueue));;
+			newQueue.enqueue("Hello");
+			assertFalse(emptyQueue.equals(newQueue));
+						
+			//clear
+			emptyQueue.clear();
+			assertEquals("", emptyQueue.toString());
+			assertEquals(0, emptyQueue.size());
+		}
+	}
 }
