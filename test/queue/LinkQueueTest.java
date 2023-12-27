@@ -2,6 +2,8 @@ package queue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -36,6 +38,21 @@ class LinkQueueTest {
 			nonEmptyQueue.enqueue(100);
 			assertEquals("1, 5, 10, 100", nonEmptyQueue.toString());
 			assertEquals(4, nonEmptyQueue.size());
+		}
+	}
+	
+	@Nested
+	class DequeueTests {
+		@Test
+		void dequeueFromNonEmptyQueue() {
+			Integer removed = nonEmptyQueue.dequeue();
+			assertEquals(1, removed);
+			assertEquals("5, 10", nonEmptyQueue.toString());
+			assertEquals(2, nonEmptyQueue.size());
+		}
+		@Test
+		void dequeueFromEmptyuQueue() {
+			assertThrows(NoSuchElementException.class, () -> { emptyQueue.dequeue(); });
 		}
 	}
 }

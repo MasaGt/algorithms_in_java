@@ -2,6 +2,7 @@ package queue;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkQueue<T> implements Queue<T> {
 
@@ -31,9 +32,8 @@ public class LinkQueue<T> implements Queue<T> {
 	}
 
 	@Override
-	public T dequeue() {
-		// TODO Auto-generated method stub
-		return null;
+	public T dequeue() throws NoSuchElementException {
+		return elements.removeFirst();
 	}
 
 	@Override
