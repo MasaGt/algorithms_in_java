@@ -1,15 +1,29 @@
 package queue;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class LinkQueue<T> implements Queue<T> {
 
-	@Override
-	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+	private ArrayList<T> elements;
+	
+	/**
+	 * initialize an empty queue
+	 */
+	public LinkQueue() {
+		elements = new ArrayList<T>();
 	}
-
+	
+	/**
+	 * initialize a queue with the argument
+	 */
+	public LinkQueue(T[] values) {
+		this();
+		for (T val: values) {
+			elements.add(val);
+		}
+	}
+	
 	@Override
 	public void enqueue(T item) {
 		// TODO Auto-generated method stub
@@ -51,5 +65,22 @@ public class LinkQueue<T> implements Queue<T> {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		String contents = "";
+		
+		Iterator<T> itr = elements.iterator();
+		while (itr.hasNext()) {
+			T value = itr.next();
+			contents += itr.hasNext() ? value + ", " : value;
+		}
+		return contents;
+	}
 
+	@Override
+	public Iterator<T> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
