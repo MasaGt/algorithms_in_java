@@ -37,9 +37,8 @@ public class LinkQueue<T> implements Queue<T> {
 	}
 
 	@Override
-	public T peek() {
-		// TODO Auto-generated method stub
-		return null;
+	public T peek() throws NoSuchElementException {
+		return elements.getFirst();
 	}
 
 	@Override

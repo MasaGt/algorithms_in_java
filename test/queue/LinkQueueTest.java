@@ -55,4 +55,19 @@ class LinkQueueTest {
 			assertThrows(NoSuchElementException.class, () -> { emptyQueue.dequeue(); });
 		}
 	}
+	
+	@Nested
+	class PeekTests {
+		@Test
+		void peekAtNonEmptyQueue() {
+			Integer peeked = nonEmptyQueue.peek();
+			assertEquals(1, peeked);
+			assertEquals("1, 5, 10", nonEmptyQueue.toString());
+			assertEquals(3, nonEmptyQueue.size());
+		}
+		@Test
+		void peekAtEmptyQueue() {
+			assertThrows(NoSuchElementException.class, () -> { emptyQueue.peek(); } );
+		}
+	}
 }
