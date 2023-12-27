@@ -58,8 +58,7 @@ public class LinkQueue<T> implements Queue<T> {
 
 	@Override
 	public boolean contains(T target) {
-		// TODO Auto-generated method stub
-		return false;
+		return elements.contains(target);
 	}
 	
 	@Override
