@@ -1,42 +1,100 @@
 package graph;
 
-import java.util.List;
 
 /**
- * This is a undirected graph based on adjacency matrix.
+ * This is an undirected graph based on adjacency matrix.
  * This graph allows to have a loop but not a duplicate edge.
+ * This graph does not allow to have a duplicate node.
  * @param <T>
  */
 public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 
-	private List<Node> nodes;
-	private int INIT_SIZE = 5; //default matrix size
+	private Node<T>[] nodeArray;
+	private final int INIT_SIZE = 5; //default matrix size
 	private boolean[][] adjacencyMatrix;
 	
 	/**
 	 * Initialize adjacencyMatrix of INIT_SIZE*INIT_SIZE.
 	 */
+	@SuppressWarnings("unchecked")
 	public AdjacencyMatrixUndirectedGraph() {
 		adjacencyMatrix = new boolean[INIT_SIZE][INIT_SIZE];
+		initMatrix();
+		nodeArray = new Node[INIT_SIZE];
 	}
 	
 	/**
 	 * Initialize adjacencyMatrix of size*size.
 	 * @param size
 	 */
+	@SuppressWarnings("unchecked")
 	public AdjacencyMatrixUndirectedGraph(int size) {
 		adjacencyMatrix = new boolean[size][size];
+		initMatrix();
+		nodeArray = new Node[size];
+	}
+	
+	/**
+	 * Fill the adjacencyMatrix will false.
+	 */
+	private void initMatrix() {
+		for (int i = 0; i < adjacencyMatrix.length; i++) {
+			for (int k = 0; k < adjacencyMatrix[i].length; k++) {
+				adjacencyMatrix[i][k] = false;
+			}
+		}
+	}
+	
+	@Override
+	public void addNode(T value) {
+		//null check
+		if (value == null) throw new IllegalArgumentException();
+		//if this graph is full, do nothing.
+		int availableIndex = findAvailableIndex();
+		if (availableIndex< 0) return;
+		
+		nodeArray[availableIndex] = new Node<T>(value);
+	}
+	
+	/**
+	 * Find and return an index at which a node can be stored in nodeArray.
+	 * Retun -1 if the nodeArray is full, which means this graph is full.
+	 * @return index which is available in nodeArray
+	 */
+	private int findAvailableIndex() {
+		for (int i = 0; i < nodeArray.length; i++) {
+			if (nodeArray[i] == null) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	/**
 	 * String representation of this graph
 	 * If NodeA is connected to NodeB, this will return "[A, B] [B, A]".
+	 * If Node A is connected to itself, this will return "[A, A]";
 	 * If NodeA is connected to NodeB and NodeB is connected to NodeC, 
 	 * this will return "[A, B] [B, A], [B, C] [C, B]".
 	 */
 	@Override
 	public String toString() {
-		String content = "";
-		return content;
+		StringBuilder content = new StringBuilder();
+		for (int i = 0; i < adjacencyMatrix.length; i++) {
+			for (int k = i; k < adjacencyMatrix[i].length; k++) {
+				if (adjacencyMatrix[i][k] == true) {
+					if (i == k) {
+						content.append("[" + nodeArray[i] + ", " + nodeArray[k] + "], ");
+					} else {
+						content.append("[" + nodeArray[i] + ", " + nodeArray[k] + "] [" + nodeArray[k] + ", " + nodeArray[i] + "], ");
+					}
+				}
+			}
+		}
+		//remove ", " at the end
+		if (content.length() > 0) {
+			content.delete(content.length() - 2, content.length());
+		}
+		return content.toString();
 	}
 }

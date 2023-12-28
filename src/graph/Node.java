@@ -1,10 +1,10 @@
 package graph;
 
-public class Node<E> {
+public class Node<T> {
 	
-	private E value;
+	private T value;
 	
-	public Node(E value) {
+	public Node(T value) {
 		this.value = value;
 	}
 	
@@ -15,7 +15,7 @@ public class Node<E> {
 		if (!(obj instanceof Node)) return false;
 		if (this == obj) return true; 
 		
-		Node<E> target = (Node<E>) obj;
+		Node<T> target = (Node<T>) obj;
 		
 		return this.value.equals(target.value);
 	}
