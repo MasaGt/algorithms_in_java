@@ -28,7 +28,17 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		void addNode() {
 			graph.addNode(10);
 			assertEquals("", graph.toString());
-			
+		}
+	}
+	
+	@Nested
+	class AddEdgeTests {
+		@Test
+		void addEdge() {
+			graph.addNode(1);
+			graph.addNode(2);
+			graph.addEdge(1, 2);
+			assertEquals("[1, 2] [2, 1]", graph.toString());
 		}
 	}
 }

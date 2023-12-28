@@ -2,10 +2,18 @@ package graph;
 
 public class Node<T> {
 	
-	private T value;
+	private T value; //the value of this node.
 	
 	public Node(T value) {
 		this.value = value;
+	}
+	
+	/**
+	 * Getter for value
+	 * @return the value of this node
+	 */
+	public T getValue() {
+		return value;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -18,5 +26,10 @@ public class Node<T> {
 		Node<T> target = (Node<T>) obj;
 		
 		return this.value.equals(target.value);
+	}
+	
+	@Override
+	public String toString() {
+		return value.toString();
 	}
 }

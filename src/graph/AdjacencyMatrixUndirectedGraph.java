@@ -4,7 +4,7 @@ package graph;
 /**
  * This is an undirected graph based on adjacency matrix.
  * This graph allows to have a loop but not a duplicate edge.
- * This graph does not allow to have a duplicate node.
+ * This graph does not allow to have a duplicate node (node that has the same value as another node).
  * @param <T>
  */
 public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
@@ -64,6 +64,36 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	private int findAvailableIndex() {
 		for (int i = 0; i < nodeArray.length; i++) {
 			if (nodeArray[i] == null) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	@Override
+	public void addEdge(T value1, T value2) {
+		int i = indexOf(value1);
+		int k = indexOf(value2);
+		//do nothing if there is not a node that has the specified value in this graph.
+		if (i < 0 || k < 0) return;
+		
+		if (i == k) {
+			//loop edge
+			adjacencyMatrix[i][i] = true;
+		} else {
+			adjacencyMatrix[i][k] = true;
+			adjacencyMatrix[k][i] = true;
+		}
+	}
+	
+	/**
+	 * Return the index of a node that has the specified value in nodeArray.
+	 * Return -1 if there is not a node that has the specified value in nodeArray.
+	 * @param value the index of a node that has the specified value.
+	 */
+	private int indexOf(T value) {
+		for (int i = 0; i < nodeArray.length; i++) {
+			if (nodeArray[i].getValue().equals(value)) {
 				return i;
 			}
 		}
