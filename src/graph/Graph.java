@@ -14,4 +14,11 @@ public interface Graph<T> {
 	 * @param value2 the value of another node
 	 */
 	public void addEdge(T value1, T value2);
+	
+	/**
+	 * Remove a node that has a specified value from this graph
+	 * @param value
+	 * @return true if node is successfully remove. otherwise, false
+	 */
+	public boolean removeNode(T value);
 }

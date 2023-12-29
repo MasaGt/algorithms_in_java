@@ -1,6 +1,8 @@
 package graph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -39,6 +41,20 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			graph.addNode(2);
 			graph.addEdge(1, 2);
 			assertEquals("[1, 2] [2, 1]", graph.toString());
+		}
+	}
+	
+	@Nested
+	class RemoveNodeTests {
+		@Test
+		void removeExstingNode() {
+			graph.addNode(1);
+			assertTrue(graph.removeNode(1));
+		}
+		@Test
+		void removeInexstingNode() {
+			graph.addNode(1);
+			assertFalse(graph.removeNode(2));
 		}
 	}
 }

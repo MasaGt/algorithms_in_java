@@ -93,11 +93,29 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	 */
 	private int indexOf(T value) {
 		for (int i = 0; i < nodeArray.length; i++) {
-			if (nodeArray[i].getValue().equals(value)) {
+			if (nodeArray[i] !=null && nodeArray[i].getValue().equals(value)) {
 				return i;
 			}
 		}
 		return -1;
+	}
+	
+	@Override
+	public boolean removeNode(T value) {
+		int targetIndex = indexOf(value);
+		//do nothing if there is not a node that has the specified value in this graph.
+		if (targetIndex < 0) return false;
+		
+		nodeArray[targetIndex] = null;
+		//remove edge which is connected to the removed node
+		for (int i = 0; i < adjacencyMatrix.length; i++) {
+			for (int k = i; k < adjacencyMatrix[i].length; k++) {
+				if (i == targetIndex || k == targetIndex) {
+					adjacencyMatrix[i][k] = false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	/**
