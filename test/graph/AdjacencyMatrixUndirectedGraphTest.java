@@ -200,4 +200,17 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			assertThrows(NoSuchElementException.class, () -> { graph.degree(2); });
 		}
 	}
+	
+	@Nested
+	class ClearTests {
+		@Test
+		void clear() {
+			graph.addNode(1);
+			graph.addNode(2);
+			graph.addEdge(1, 2);
+			graph.clear();
+			assertEquals("", graph.toString());
+			assertEquals("[]", Arrays.toString(graph.getNodes()));
+		}
+	}
 }

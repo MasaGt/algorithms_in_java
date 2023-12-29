@@ -56,4 +56,9 @@ public interface Graph<T> {
 	 * @return the number of node connected
 	 */
 	public int degree(T value);
+	
+	/**
+	 * Remove all the nodes and edges from this graph
+	 */
+	public void clear();
 }

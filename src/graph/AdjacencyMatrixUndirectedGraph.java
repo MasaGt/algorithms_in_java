@@ -177,6 +177,13 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 		return cnt;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void clear() {
+		initMatrix();
+		nodeArray = new Node[nodeArray.length];
+	}
+	
 	/**
 	 * String representation of this graph
 	 * If NodeA is connected to NodeB, this will return "[A, B] [B, A]".
