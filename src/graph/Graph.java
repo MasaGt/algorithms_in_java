@@ -48,4 +48,12 @@ public interface Graph<T> {
 	 * @return
 	 */
 	public boolean hasNode(T value);
+	
+	/**
+	 * Return the number of node connected to the node that has the specified value
+	 * = the number of edges of the node that has specified value
+	 * @param value the value of node
+	 * @return the number of node connected
+	 */
+	public int degree(T value);
 }

@@ -2,9 +2,11 @@ package graph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -169,6 +171,33 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		void checkInexistingNode() {
 			graph.addNode(1);
 			assertFalse(graph.hasNode(2));
+		}
+	}
+	
+	@Nested
+	class DegreeTests {
+		@Test
+		void zeroAdjacentNode() {
+			graph.addNode(1);
+			assertEquals(0, graph.degree(1));
+		}
+		void twoAdjacentNode() {
+			graph.addNode(1);
+			graph.addNode(2);
+			graph.addNode(3);
+			//connect 2 to 1
+			graph.addEdge(2, 1);
+			//connect 3 to 1
+			graph.addEdge(3, 1);
+			assertEquals(2, graph.degree(1));
+		}
+		@Test
+		void passNull() {
+			assertThrows(IllegalArgumentException.class, () -> {graph.degree(null); });
+		}
+		@Test
+		void passInExistingNode() {
+			assertThrows(NoSuchElementException.class, () -> { graph.degree(2); });
 		}
 	}
 }

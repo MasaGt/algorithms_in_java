@@ -1,6 +1,7 @@
 package graph;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * This is an undirected graph based on adjacency matrix.
@@ -94,7 +95,7 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	 * Return -1 if there is not a node that has the specified value in nodeArray.
 	 * @param value the index of a node that has the specified value.
 	 */
-	private int indexOf(T value) {
+	private int indexOf(T value) { 
 		for (int i = 0; i < nodeArray.length; i++) {
 			if (nodeArray[i] !=null && nodeArray[i].getValue().equals(value)) {
 				return i;
@@ -158,6 +159,22 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	@Override
 	public boolean hasNode(T value) {
 		return !(indexOf(value) < 0);
+	}
+	
+	@Override
+	public int degree(T value){
+		//null check
+		if (value == null) throw new IllegalArgumentException("Null should not be passed.");
+		int indexOfNode = indexOf(value);
+		//node existance check
+		if (indexOfNode < 0) throw new NoSuchElementException("There is not such a node.");
+		int cnt = 0;
+		for (int i = 0;  i < adjacencyMatrix.length; i++) {
+			if (value.equals(adjacencyMatrix[i][indexOfNode])) {
+				cnt++;
+			}
+		}
+		return cnt;
 	}
 	
 	/**
