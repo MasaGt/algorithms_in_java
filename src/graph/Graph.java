@@ -27,4 +27,10 @@ public interface Graph<T> {
 	 * @return true if edges successfully removed. otherwise, false
 	 */
 	public boolean removeEdge(T value1, T value2);
+	
+	/**
+	 * Retuen the nodes in this graph
+	 * @return Array of the nodes
+	 */
+	public Node<T>[] getNodes();
 }

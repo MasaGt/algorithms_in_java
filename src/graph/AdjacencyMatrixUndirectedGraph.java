@@ -1,5 +1,6 @@
 package graph;
 
+import java.util.Arrays;
 
 /**
  * This is an undirected graph based on adjacency matrix.
@@ -134,6 +135,13 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 			adjacencyMatrix[indexNode2][indexNode1] = false;
 		}
 		return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Node<T>[] getNodes() {
+		//create Node Array that only has exsting node (remove null)
+		return Arrays.stream(nodeArray).filter((a) -> a != null).toArray(Node[]::new);
 	}
 	
 	/**
