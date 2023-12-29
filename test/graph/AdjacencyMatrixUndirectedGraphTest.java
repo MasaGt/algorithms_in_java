@@ -57,4 +57,25 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			assertFalse(graph.removeNode(2));
 		}
 	}
+	
+	@Nested
+	class RemoveEdgeTests {
+		@Test
+		void removeExstingEdge() {
+			graph.addNode(1);
+			graph.addNode(2);
+			graph.addEdge(1, 2);
+			assertTrue(graph.removeEdge(1, 2));
+			assertEquals("", graph.toString());
+		}
+		@Test
+		void removeInexstingEdge() {
+			graph.addNode(1);
+			graph.addNode(2);
+			graph.addEdge(1, 2);
+			//try to remove edges that does not exist in the graph
+			assertFalse(graph.removeEdge(1, 3));
+			assertEquals("[1, 2] [2, 1]", graph.toString());
+		}
+	}
 }

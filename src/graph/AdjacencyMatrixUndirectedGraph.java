@@ -118,6 +118,24 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 		return true;
 	}
 	
+	@Override
+	public boolean removeEdge(T value1, T value2) {
+		//return false if there is not a node that has the specified value.
+		int indexNode1 = indexOf(value1);
+		int indexNode2 = indexOf(value2);
+		if (indexNode1 < 0 || indexNode2 < 0) return false;
+		
+		//remove edges from adjacency matrix
+		if (indexNode1 == indexNode2) {
+			//remove loop edge
+			adjacencyMatrix[indexNode1][indexNode2] = false;
+		} else {
+			adjacencyMatrix[indexNode1][indexNode2] = false;
+			adjacencyMatrix[indexNode2][indexNode1] = false;
+		}
+		return true;
+	}
+	
 	/**
 	 * String representation of this graph
 	 * If NodeA is connected to NodeB, this will return "[A, B] [B, A]".

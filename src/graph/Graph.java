@@ -18,7 +18,13 @@ public interface Graph<T> {
 	/**
 	 * Remove a node that has a specified value from this graph
 	 * @param value
-	 * @return true if node is successfully remove. otherwise, false
+	 * @return true if node is successfully removed. otherwise, false
 	 */
 	public boolean removeNode(T value);
+	
+	/**
+	 * Remove edge that connects two specified nodes
+	 * @return true if edges successfully removed. otherwise, false
+	 */
+	public boolean removeEdge(T value1, T value2);
 }
