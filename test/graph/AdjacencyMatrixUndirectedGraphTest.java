@@ -40,6 +40,14 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			assertEquals(1, graph.getNodes().length);
 			assertEquals("[10]", Arrays.toString(graph.getNodes()));
 		}
+		@Test
+		void addDuplicateNode() {
+			graph.addNode(10);
+			//this should be ignored
+			graph.addNode(10);
+			assertEquals(1, graph.getNodes().length);
+			assertEquals("[10]", Arrays.toString(graph.getNodes()));
+		}
 	}
 	
 	/**
@@ -54,7 +62,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			graph.addEdge(1, 2);
 			assertEquals("[1, 2] [2, 1]", graph.toString());
 		}
-		//TODO: need a test for adding a duplicate node
 	}
 	
 	@Nested
@@ -70,7 +77,7 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			assertEquals("[]", Arrays.toString(graph.getNodes()));
 		}
 		/**
-		 * Check the node is not removed if the specified node doed not exist in the graph
+		 * Check the node is not removed if the specified node does not exist in the graph
 		 */
 		@Test
 		void removeInexstingNode() {
@@ -79,13 +86,22 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			assertEquals(1, graph.getNodes().length);
 			assertEquals("[1]", Arrays.toString(graph.getNodes()));
 		}
-		//TODO: try to remove nodeA and check if nodeA and edges between nodeA and another node are removed
-		/**
-		 * Before remove NodeA
-		 * ->		[NodeA] - [NodeB]
-		 * After remove nodeA
-		 * ->		[NodeB]
-		 */
+		@Test
+		void removeExistingNodeThatHasConnection() {
+			/*
+			 * Before remove NodeA
+			 * ->		[NodeA] - [NodeB]
+			 * After remove nodeA
+			 * ->		[NodeB]
+			 */
+			graph.addNode(1);
+			graph.addNode(2);
+			graph.addEdge(1, 2);
+			graph.removeNode(1);
+			
+			//edges between NodeA and NodeB sould be removed too
+			assertEquals("", graph.toString());
+		}
 	}
 	
 	@Nested

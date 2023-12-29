@@ -50,7 +50,8 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	public void addNode(T value) {
 		//null check
 		if (value == null) throw new IllegalArgumentException();
-		//TODO: do nothing is there is a node that has the same value already
+		//duplicate value check
+		if (!(indexOf(value) < 0)) return; 
 		//if this graph is full, do nothing.
 		int availableIndex = findAvailableIndex();
 		if (availableIndex< 0) return;
