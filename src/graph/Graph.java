@@ -41,4 +41,11 @@ public interface Graph<T> {
 	 * @return true if there is edges. otherwise, false
 	 */
 	public boolean hasEdge(T value1, T value2);
+	
+	/**
+	 * Check if there is a node that has the specified value.
+	 * @param value
+	 * @return
+	 */
+	public boolean hasNode(T value);
 }

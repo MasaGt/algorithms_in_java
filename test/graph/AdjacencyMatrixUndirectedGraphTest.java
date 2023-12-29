@@ -54,6 +54,7 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			graph.addEdge(1, 2);
 			assertEquals("[1, 2] [2, 1]", graph.toString());
 		}
+		//TODO: need a test for adding a duplicate node
 	}
 	
 	@Nested
@@ -138,6 +139,20 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			graph.addNode(value1);
 			graph.addNode(value2);
 			assertFalse(graph.hasEdge(value1, value2));
+		}
+	}
+	
+	@Nested
+	class HasNodeTests {
+		@Test
+		void checkExistingNode() {
+			graph.addNode(1);
+			assertTrue(graph.hasNode(1));
+		}
+		@Test
+		void checkInexistingNode() {
+			graph.addNode(1);
+			assertFalse(graph.hasNode(2));
 		}
 	}
 }
