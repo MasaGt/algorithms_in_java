@@ -213,4 +213,50 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			assertEquals("[]", Arrays.toString(graph.getNodes()));
 		}
 	}
+	
+	@Nested
+	class Operations {
+		@Test
+		void operationsGraph() {
+			//create 3*3 adjacency matrix graph
+			Graph<String> smallGraph = new AdjacencyMatrixUndirectedGraph<String>(3);
+			String A = "A";
+			smallGraph.addNode(A);
+			//add loop edge
+			smallGraph.addEdge(A, A);
+			assertEquals("[A, A]", smallGraph.toString());
+			assertTrue(smallGraph.hasEdge(A, A));
+			//remove loop edge
+			assertTrue(smallGraph.removeEdge(A, A));
+			assertFalse(smallGraph.hasEdge(A, A));
+			assertEquals("", smallGraph.toString());
+			
+			String B = "B";
+			smallGraph.addNode(B);
+			String C = "C";
+			smallGraph.addNode(C);
+
+			smallGraph.addEdge(A, B);
+			smallGraph.addEdge(A, C);
+			smallGraph.addEdge(B, C);
+			String completeGraph = "[A, B] [B, A], [A, C] [C, A], [B, C] [C, B]";
+			
+			assertEquals(completeGraph, smallGraph.toString());
+			
+			assertTrue(smallGraph.hasEdge(A, B));
+			assertTrue(smallGraph.hasNode(B));
+			assertEquals(2, smallGraph.degree(A));
+			
+			//add node more than the graph size(should be ignored)
+			String D = "D";
+			smallGraph.addNode(D);
+			assertFalse(smallGraph.hasNode(D));
+			assertEquals(completeGraph, smallGraph.toString());
+			assertEquals("[" + A + ", " + B + ", " + C + "]", Arrays.toString(smallGraph.getNodes()));
+			
+			smallGraph.clear();
+			assertEquals("", smallGraph.toString());
+			assertEquals("[]", Arrays.toString(smallGraph.getNodes()));
+		}
+	}
 }

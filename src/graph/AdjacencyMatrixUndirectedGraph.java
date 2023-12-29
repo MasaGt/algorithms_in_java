@@ -186,7 +186,7 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 		if (indexOfNode < 0) throw new NoSuchElementException("There is not such a node.");
 		int cnt = 0;
 		for (int i = 0;  i < adjacencyMatrix.length; i++) {
-			if (value.equals(adjacencyMatrix[i][indexOfNode])) {
+			if (adjacencyMatrix[i][indexOfNode]) {
 				cnt++;
 			}
 		}
