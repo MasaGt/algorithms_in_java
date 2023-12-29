@@ -119,4 +119,25 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			assertEquals("[1, 2, 100]", Arrays.toString(graph.getNodes()));
 		}
 	}
+	
+	@Nested
+	class HasEdgeTests {
+		@Test
+		void checkExistingEdge() {
+			Integer value1 = 1;
+			Integer value2 = 2;
+			graph.addNode(value1);
+			graph.addNode(value2);
+			graph.addEdge(value1, value2);
+			assertTrue(graph.hasEdge(value1, value2));
+		}
+		@Test
+		void checkInexstingEdge() {
+			Integer value1 = 1;
+			Integer value2 = 2;
+			graph.addNode(value1);
+			graph.addNode(value2);
+			assertFalse(graph.hasEdge(value1, value2));
+		}
+	}
 }

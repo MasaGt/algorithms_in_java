@@ -33,4 +33,12 @@ public interface Graph<T> {
 	 * @return Array of the nodes
 	 */
 	public Node<T>[] getNodes();
+	
+	/**
+	 * Check if there is edges between two specified nodes in this graph
+	 * @param value1 the value of node1
+	 * @param value2 the value of node2
+	 * @return true if there is edges. otherwise, false
+	 */
+	public boolean hasEdge(T value1, T value2);
 }
