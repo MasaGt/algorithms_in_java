@@ -7,10 +7,23 @@ import java.util.NoSuchElementException;
  * This is an undirected graph based on adjacency matrix.
  * This graph allows to have a loop but not a duplicate edge.
  * This graph does not allow to have a duplicate node (node that has the same value as another node).
+ * This graph does not allow to have a node whose value is null.
  * @param <T>
  */
 public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 
+	/*
+	 * the index of nodeArray correspond to the index of adjacencyMatrix.
+	 * nodeArray
+	 * [A, B, C, D]
+	 * 
+	 * adjacencyMatrix
+	 *  A, B, C, D
+	 * [~, ~, ~, ~] A 
+	 * [~, ~, ~, ~] B 
+	 * [~, ~, ~, ~] C 
+	 * [~, ~, ~, ~] D 
+	 */
 	private Node<T>[] nodeArray;
 	private final int INIT_SIZE = 5; //default matrix size
 	private boolean[][] adjacencyMatrix;
@@ -49,8 +62,7 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	
 	@Override
 	public void addNode(T value) {
-		//null check
-		if (value == null) throw new IllegalArgumentException();
+		nullCheck(value);
 		//duplicate value check
 		if (!(indexOf(value) < 0)) return; 
 		//if this graph is full, do nothing.
@@ -76,6 +88,7 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	
 	@Override
 	public void addEdge(T value1, T value2) {
+		nullCheck(value1, value2);
 		int i = indexOf(value1);
 		int k = indexOf(value2);
 		//do nothing if there is not a node that has the specified value in this graph.
@@ -106,6 +119,7 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	
 	@Override
 	public boolean removeNode(T value) {
+		nullCheck(value);
 		int targetIndex = indexOf(value);
 		//do nothing if there is not a node that has the specified value in this graph.
 		if (targetIndex < 0) return false;
@@ -124,6 +138,7 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	
 	@Override
 	public boolean removeEdge(T value1, T value2) {
+		nullCheck(value1, value2);
 		//return false if there is not a node that has the specified value.
 		int indexNode1 = indexOf(value1);
 		int indexNode2 = indexOf(value2);
@@ -149,6 +164,7 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	
 	@Override
 	public boolean hasEdge(T value1, T value2) {
+		nullCheck(value1, value2);
 		//return false if there is not a node that has the specified value.
 		int indexNode1 = indexOf(value1);
 		int indexNode2 = indexOf(value2);
@@ -158,13 +174,13 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	
 	@Override
 	public boolean hasNode(T value) {
+		nullCheck(value);
 		return !(indexOf(value) < 0);
 	}
 	
 	@Override
 	public int degree(T value){
-		//null check
-		if (value == null) throw new IllegalArgumentException("Null should not be passed.");
+		nullCheck(value);
 		int indexOfNode = indexOf(value);
 		//node existance check
 		if (indexOfNode < 0) throw new NoSuchElementException("There is not such a node.");
@@ -182,6 +198,17 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	public void clear() {
 		initMatrix();
 		nodeArray = new Node[nodeArray.length];
+	}
+	
+	/**
+	 * Null check. If value is null, throw IllegalArgumentException.
+	 * @param values the values of nodes
+	 */
+	@SafeVarargs
+	private void nullCheck(T... values) {
+		for (T value : values) {
+			if (value == null) throw new IllegalArgumentException("This graph can not have a node whose value is null.");
+		}
 	}
 	
 	/**
