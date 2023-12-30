@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.annotation.Testable;
 
 public class AdjacencyMatrixUndirectedGraphTest {
 
@@ -25,6 +26,16 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		@Test
 		void initEmptyGraph() {
 			assertEquals("", graph.toString());
+		}
+		@Test
+		void initGraphWithSize0() {
+			//init a graph with size zero
+			assertThrows(IllegalArgumentException.class, () -> { new AdjacencyMatrixUndirectedGraph<Object>(0); });
+		}
+		@Test
+		void initGraphWithNegativeSize() {
+			//init a graph with negative size
+			assertThrows(IllegalArgumentException.class, () -> { new AdjacencyMatrixUndirectedGraph<Object>(-1); });
 		}
 	}
 	

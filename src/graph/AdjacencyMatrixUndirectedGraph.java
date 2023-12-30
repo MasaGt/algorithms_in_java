@@ -44,6 +44,7 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public AdjacencyMatrixUndirectedGraph(int size) {
+		if (size <= 0) throw new IllegalArgumentException();
 		adjacencyMatrix = new boolean[size][size];
 		initMatrix();
 		nodeArray = new Node[size];
