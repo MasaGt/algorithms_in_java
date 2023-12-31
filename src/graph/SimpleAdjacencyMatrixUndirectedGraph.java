@@ -7,7 +7,7 @@ package graph;
  */
 public class SimpleAdjacencyMatrixUndirectedGraph implements SimpleGraph {
 
-	private boolean[][] adjacencyMatrix;
+	private boolean[][] adjacencyMatrix; //true means there is an edge between two nodes
 	private int numVertices; //the number of vertecies that this graph can has = the size of this graph
 	private final int DEFAULT_NUM_VERTICES = 5;
 	
@@ -34,6 +34,13 @@ public class SimpleAdjacencyMatrixUndirectedGraph implements SimpleGraph {
 		checkIndex(node1, node2);
 		adjacencyMatrix[node1][node2] = true;
 		adjacencyMatrix[node2][node1] = true;
+	}
+	
+	@Override
+	public void removeEdge(int node1, int node2) {
+		checkIndex(node1, node2);
+		adjacencyMatrix[node1][node2] = false;
+		adjacencyMatrix[node2][node1] = false;
 	}
 	
 	/**

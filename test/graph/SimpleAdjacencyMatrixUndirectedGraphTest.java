@@ -24,8 +24,23 @@ class SimpleAdjacencyMatrixUndirectedGraphTest {
 		}
 		@Test
 		void addInvalidEdge() {
-			//add edge between two nodes that boyond the size of the graph
-			assertThrows(ArrayIndexOutOfBoundsException.class, () -> {graph.addEdge(5, 0);} );
+			//add edge between two nodes that is boyond the size of the graph
+			assertThrows(ArrayIndexOutOfBoundsException.class, () -> {graph.addEdge(5, 0);});
+		}
+	}
+	
+	@Nested
+	class RemoveEdgeTests {
+		@Test
+		void removeValidEdge() {
+			graph.addEdge(0, 1);
+			graph.removeEdge(0, 1);
+			assertEquals("", graph.toString());
+		}
+		@Test
+		void removeInvalidEdge() {
+			//remove edge between two nodes that is boyond the size of the graph
+			assertThrows(ArrayIndexOutOfBoundsException.class, () -> {graph.removeEdge(0, 5);});
 		}
 	}
 }
