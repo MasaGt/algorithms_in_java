@@ -7,8 +7,8 @@ package graph;
  */
 public class SimpleAdjacencyMatrixUndirectedGraph implements SimpleGraph {
 
-	private boolean[][] adjacencyMatrix; //true means there is an edge between two nodes
-	private int numVertices; //the number of vertecies that this graph can has = the size of this graph
+	protected boolean[][] adjacencyMatrix; //true means there is an edge between two nodes
+	protected int numVertices; //the number of vertecies that this graph can has = the size of this graph
 	private final int DEFAULT_NUM_VERTICES = 5;
 	
 	/**
@@ -54,7 +54,7 @@ public class SimpleAdjacencyMatrixUndirectedGraph implements SimpleGraph {
 	 * If if the specified index is beyond the matrix, this throws ArrayIndexOutOfBoundsException. 
 	 * @param indices
 	 */
-	private void checkIndex(int... indices) {
+	protected void checkIndex(int... indices) {
 		for (int index : indices) {
 			if (index < 0 || index >= numVertices) {
 				throw new ArrayIndexOutOfBoundsException();
