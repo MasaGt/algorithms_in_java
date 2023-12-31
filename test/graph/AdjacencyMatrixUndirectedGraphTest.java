@@ -11,7 +11,6 @@ import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.annotation.Testable;
 
 public class AdjacencyMatrixUndirectedGraphTest {
 
