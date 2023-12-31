@@ -43,4 +43,34 @@ class SimpleAdjacencyMatrixUndirectedGraphTest {
 			assertThrows(ArrayIndexOutOfBoundsException.class, () -> {graph.removeEdge(0, 5);});
 		}
 	}
+	
+	@Nested
+	class hasEdgeTests {
+		@Test
+		void checkExstingEdge() {
+			graph.addEdge(0, 1);
+			assertTrue(graph.hasEdge(0, 1));
+		}
+		@Test
+		void checkInexstingEdge() {
+			assertFalse(graph.hasEdge(0, 1));
+		}
+		@Test
+		void checkInvalidEdge() {
+			//check edge between two nodes that is boyond the size of the graph
+			assertThrows(ArrayIndexOutOfBoundsException.class, () -> {graph.removeEdge(-1, 0);});
+		}
+	}
+	
+	@Nested
+	class ClearTests {
+		@Test
+		void clear() {
+			graph.addEdge(0, 0);
+			graph.addEdge(0, 1);
+			graph.addEdge(1, 2);
+			graph.clear();
+			assertEquals("", graph.toString());
+		}
+	}
 }

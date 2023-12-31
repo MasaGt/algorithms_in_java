@@ -43,6 +43,12 @@ public class SimpleAdjacencyMatrixUndirectedGraph implements SimpleGraph {
 		adjacencyMatrix[node2][node1] = false;
 	}
 	
+	@Override
+	public boolean hasEdge(int node1, int node2) {
+		checkIndex(node1, node2);
+		return adjacencyMatrix[node1][node2];
+	}
+	
 	/**
 	 * Check if the specified index is within the adjacency matrix or not.
 	 * If if the specified index is beyond the matrix, this throws ArrayIndexOutOfBoundsException. 
@@ -54,6 +60,11 @@ public class SimpleAdjacencyMatrixUndirectedGraph implements SimpleGraph {
 				throw new ArrayIndexOutOfBoundsException();
 			}
 		}
+	}
+	
+	@Override
+	public void clear() {
+		adjacencyMatrix = new boolean[numVertices][numVertices];
 	}
 	
 	/**
