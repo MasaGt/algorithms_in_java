@@ -5,7 +5,7 @@ package graph;
  * When this grahp is construced, nodes are already exist.
  * This graph provides some operations about manipulating edges.
  */
-public class SimpleAdjacencyMatrixUndirectedGraph implements SimpleGraph {
+public class SimpleAdjacencyMatrixUndirectedGraph implements SimpleAdjacencyMatrixGraph {
 
 	protected boolean[][] adjacencyMatrix; //true means there is an edge between two nodes
 	protected int numVertices; //the number of vertecies that this graph can has = the size of this graph

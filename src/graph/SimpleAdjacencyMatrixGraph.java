@@ -3,7 +3,7 @@ package graph;
 /**
  * The interface for samiple graph classes
  */
-public interface SimpleGraph {
+public interface SimpleAdjacencyMatrixGraph {
 	
 	/**
 	 * Add edge between two specified nodes.
