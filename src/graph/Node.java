@@ -1,5 +1,7 @@
 package graph;
 
+import java.util.Objects;
+
 public class Node<T> {
 	
 	private T value; //the value of this node.
@@ -31,5 +33,10 @@ public class Node<T> {
 	@Override
 	public String toString() {
 		return value.toString();
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(value);
 	}
 }

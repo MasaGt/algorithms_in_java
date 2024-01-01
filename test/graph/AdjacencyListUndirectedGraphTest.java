@@ -26,4 +26,26 @@ class AdjacencyListUndirectedGraphTest {
 			assertEquals("", graph.toString());
 		}
 	}
+	
+	@Nested
+	class AddNodeTests {
+		@Test
+		void addValidNode() {
+			graph.addNode("A");
+			assertEquals("[A]", Arrays.toString(graph.getNodes()));
+			assertEquals("", graph.toString());
+		}
+		@Test
+		void addInvalidNode() {
+			assertThrows(IllegalArgumentException.class, () -> {graph.addNode(null);});
+		}
+		@Test
+		void addDuplicateNode() {
+			graph.addNode("A");
+			//this should be ignored
+			graph.addNode("A");
+			assertEquals(1, graph.getNodes().length);
+			assertEquals("[A]", Arrays.toString(graph.getNodes()));
+		}
+	}
 }
