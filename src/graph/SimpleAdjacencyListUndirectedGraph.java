@@ -14,7 +14,7 @@ import java.util.TreeSet;
 public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGraph {
 
 	protected List<Set<Integer>> adjacencyList;
-	private final int DEFAULT_NUM_VERTICES = 5;
+	protected final int DEFAULT_NUM_VERTICES = 5;
 
 	/**
 	 * Initialize adjacencyMatrix with default size.
@@ -35,7 +35,7 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 	/**
 	 * Create a graph with the specified size
 	 */
-	private void initAdjacencyList(int size) {
+	protected void initAdjacencyList(int size) {
 		if (size <= 0) throw new IllegalArgumentException();
 		adjacencyList = new LinkedList<Set<Integer>>();
 		for (int i = 0; i < size; i++) {
