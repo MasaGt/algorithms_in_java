@@ -15,6 +15,15 @@ class SimpleAdjacencyListUndirectedGraphTest {
 	}
 	
 	@Nested
+	class InitTests {
+		@Test
+		void initInvalidGraph() {
+			//initialize too small graph
+			assertThrows(IllegalArgumentException.class, () -> {new SimpleAdjacencyListUndirectedGraph(0);});	
+		}
+	}
+	
+	@Nested
 	class AddEdgeTests {
 		@Test
 		void addValidEdge() {
@@ -103,6 +112,31 @@ class SimpleAdjacencyListUndirectedGraphTest {
 			graph.clear();
 			String expect = "0: \n1: \n2: \n3: \n4: \n";
 			assertEquals(expect, graph.toString());
+		}
+	}
+	
+	@Nested
+	class Operations {
+		@Test
+		void manipulateGraph() {
+			SimpleAdjacencyListUndirectedGraph smallGraph = new SimpleAdjacencyListUndirectedGraph(3);
+			
+			smallGraph.addEdge(0, 0);
+			smallGraph.addEdge(1, 2);
+			String expect = "0: 0\n1: 2\n2: 1\n";
+			assertEquals(expect, smallGraph.toString());
+			
+			smallGraph.addEdge(2, 0);
+			smallGraph.removeEdge(2, 1);
+			expect = "0: 0, 2\n1: \n2: 0\n";
+			assertEquals(expect, smallGraph.toString());
+			
+			assertTrue(smallGraph.hasEdge(0, 2));
+			assertFalse(smallGraph.hasEdge(1, 2));
+			
+			smallGraph.clear();
+			expect = "0: \n1: \n2: \n";
+			assertEquals(expect, smallGraph.toString());
 		}
 	}
 }

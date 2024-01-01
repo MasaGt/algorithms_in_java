@@ -1,8 +1,10 @@
 package graph;
 
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Simple version of adjacecny list undirected graph. When this grahp is
@@ -11,7 +13,7 @@ import java.util.List;
  */
 public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGraph {
 
-	protected List<List<Integer>> adjacencyList;
+	protected List<Set<Integer>> adjacencyList;
 	private final int DEFAULT_NUM_VERTICES = 5;
 
 	/**
@@ -35,15 +37,14 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 	 */
 	private void initAdjacencyList(int size) {
 		if (size <= 0) throw new IllegalArgumentException();
-		adjacencyList = new LinkedList<List<Integer>>();
+		adjacencyList = new LinkedList<Set<Integer>>();
 		for (int i = 0; i < size; i++) {
-			adjacencyList.add(new LinkedList<Integer>());
+			adjacencyList.add(new TreeSet<Integer>());
 		}
 	}
 
 	/**
 	 * adjacencyList(index) should be in ascending order order
-	 * 
 	 *  
 	 * [0, 1, 2, 3, 4]
 	 * [1, 0, 0, 1, ~]↓ ascending order
@@ -53,36 +54,28 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 	@Override
 	public void addEdge(int node1, int node2) {
 		checkNodeIndex(node1, node2);
-
-		//add an egde. then, ort the adjacency list in ascending order.
 		adjacencyList.get(node1).add(node2);
-		Collections.sort(adjacencyList.get(node1));
 		adjacencyList.get(node2).add(node1);
-		Collections.sort(adjacencyList.get(node2));
 	}
 	
 	@Override
 	public void removeEdge(int node1, int node2) {
 		checkNodeIndex(node1, node2);
-		
-		//check if there is a edge between the nodes
-		if (adjacencyList.get(node1).contains(node2) &&
-			adjacencyList.get(node2).contains(node1))
-		{
-			int removeIndex1 = adjacencyList.get(node2).indexOf(node1);
-			int removeIndex2 = adjacencyList.get(node1).indexOf(node2);
-			adjacencyList.get(node1).remove(removeIndex2);
-			adjacencyList.get(node2).remove(removeIndex1);
-		}
+		//if there is not a sprcified node in this graph, no change to the graph.
+		adjacencyList.get(node1).remove(node2);
+		adjacencyList.get(node2).remove(node1);
 	}
 	
 	@Override
 	public boolean hasEdge(int node1, int node2) {
 		checkNodeIndex(node1, node2);
-		
-		return adjacencyList.get(node2).indexOf(node1) >= 0;
+		return adjacencyList.get(node1).contains(node2);
 	}
 	
+	/**
+	 * Range check for the specified node.
+	 * @param indices the index of a node.
+	 */
 	private void checkNodeIndex(int ...indices) {
 		for (int index : indices) {
 			if (index < 0 || index >= adjacencyList.size()) {
@@ -98,16 +91,13 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 
 	/**
 	 * String representation of this graph.
-	 * 
 	 * If there is NodeA and it is not connected, this returns as follows; 
 	 * A:
-	 * 
 	 * If NodeA is connected to NodeB, this returns as follows;
-	 * A: B B: A
-	 * 
+	 * A: B
+	 * B: A
 	 * If NodeA is connected to itself, this returns as follows;
 	 * A: A
-	 * 
 	 * If NodeA is connected to NodeB and NodeB is connected to NodeC, this returns
 	 * as follows;
 	 * A: B
@@ -127,13 +117,10 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 		 */
 		for (int i = 0; i < adjacencyList.size(); i++) {
 			content += i + ": ";
-			for (int k = 0; k < adjacencyList.get(i).size(); k++) {
-				Integer node = adjacencyList.get(i).get(k);
-				if (k != adjacencyList.get(i).size() - 1) {
-					content += node + ", ";
-				} else {
-					content += node;
-				}
+			Iterator<Integer> itr =  adjacencyList.get(i).iterator();
+			while (itr.hasNext()) {
+				Integer node = itr.next();
+				content += itr.hasNext() ? node.toString() + ", " : node.toString();
 			}
 			content += "\n";
 		}
