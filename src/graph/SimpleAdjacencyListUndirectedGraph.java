@@ -11,7 +11,6 @@ import java.util.List;
 public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGraph {
 
 	protected List<List<Integer>> adjacencyList;
-	protected int numVertices; // the number of vertecies that this graph can has = the size of this graph
 	private final int DEFAULT_NUM_VERTICES = 5;
 
 	/**
@@ -50,6 +49,23 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 
 		adjacencyList.get(node1).add(node2);
 		adjacencyList.get(node2).add(node1);
+	}
+	
+	@Override
+	public void removeEdge(int node1, int node2) {
+		if (node1 < 0 || node2 < 0 || 
+			node1 >= adjacencyList.size() || node2 >= adjacencyList.size())
+			throw new IndexOutOfBoundsException();
+		
+		//check if there is a edge between the nodes
+		if (adjacencyList.get(node1).contains(node2) &&
+			adjacencyList.get(node2).contains(node1))
+		{
+			int removeIndex1 = adjacencyList.get(node2).indexOf(node1);
+			int removeIndex2 = adjacencyList.get(node1).indexOf(node2);
+			adjacencyList.get(node1).remove(removeIndex2);
+			adjacencyList.get(node2).remove(removeIndex1);
+		}
 	}
 
 	/**
@@ -95,5 +111,4 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 		}
 		return content;
 	}
-
 }
