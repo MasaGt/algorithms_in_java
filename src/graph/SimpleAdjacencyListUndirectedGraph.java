@@ -76,7 +76,7 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 	 * Range check for the specified node.
 	 * @param indices the index of a node.
 	 */
-	private void checkNodeIndex(int ...indices) {
+	protected void checkNodeIndex(int ...indices) {
 		for (int index : indices) {
 			if (index < 0 || index >= adjacencyList.size()) {
 				throw new IndexOutOfBoundsException();

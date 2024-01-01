@@ -47,9 +47,9 @@ class SimpleAdjacencyListUndirectedGraphTest {
 		}
 		@Test
 		void checkTheOrderOfEdge() {
-			//add edge between nodes that is beyond the size of graph (5*5)
 			/*
-			 * Graph should be as follows
+			 * There are edges between 0 and 1, and 1 and 2.
+			 * But the graph should be as follows,  regardless of when each edge is added.
 			 * 
 			 * 0: 1, 2
 			 * 1: 0
