@@ -54,8 +54,16 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 
 	@Override
 	public boolean removeNode(T value) {
-		// TODO Auto-generated method stub
-		return false;
+		Node<T> targetNode = new Node<T>(value);
+		if (!adjacencyList.containsKey(targetNode)) return false;
+		adjacencyList.remove(targetNode);
+		//remove edges that are connected to targetNode from other nodes
+		for (Node<T> node : adjacencyList.keySet()) {
+			if (adjacencyList.get(node).contains(targetNode)) {
+				adjacencyList.get(node).remove(targetNode);
+			}
+		}
+		return true;
 	}
 
 	@Override
