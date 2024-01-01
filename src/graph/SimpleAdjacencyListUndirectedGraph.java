@@ -1,5 +1,6 @@
 package graph;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +23,6 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 
 	/**
 	 * Initialize adjacencyMatrix with specified size.
-	 * 
 	 * @param size size of the graph
 	 */
 	public SimpleAdjacencyListUndirectedGraph(int size) {
@@ -41,12 +41,24 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 		}
 	}
 
+	/**
+	 * adjacencyList(index) should be in ascending order order
+	 * 
+	 *  
+	 * [0, 1, 2, 3, 4]
+	 * [1, 0, 0, 1, ~]↓ ascending order
+	 * [2, 3, ~, ~, ~]
+	 * [~, ~, ~, ~, ~]
+	 */
 	@Override
 	public void addEdge(int node1, int node2) {
 		checkNodeIndex(node1, node2);
 
+		//add an egde. then, ort the adjacency list in ascending order.
 		adjacencyList.get(node1).add(node2);
+		Collections.sort(adjacencyList.get(node1));
 		adjacencyList.get(node2).add(node1);
+		Collections.sort(adjacencyList.get(node2));
 	}
 	
 	@Override

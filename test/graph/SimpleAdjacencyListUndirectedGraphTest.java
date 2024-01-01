@@ -36,6 +36,24 @@ class SimpleAdjacencyListUndirectedGraphTest {
 			//add edge between nodes that is beyond the size of graph (5*5)
 			assertThrows(IndexOutOfBoundsException.class, ()-> {graph.addEdge(0, 5);});
 		}
+		@Test
+		void checkTheOrderOfEdge() {
+			//add edge between nodes that is beyond the size of graph (5*5)
+			/*
+			 * Graph should be as follows
+			 * 
+			 * 0: 1, 2
+			 * 1: 0
+			 * 2: 0
+			 * 3:
+			 * 4:
+			 */
+			graph.addEdge(0, 2);
+			graph.addEdge(0, 1);
+			
+			String expect = "0: 1, 2\n1: 0\n2: 0\n3: \n4: \n";
+			assertEquals(expect, graph.toString());
+		}
 	}
 	
 	@Nested
