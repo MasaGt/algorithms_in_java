@@ -43,9 +43,7 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 
 	@Override
 	public void addEdge(int node1, int node2) {
-		if (node1 < 0 || node2 < 0 || 
-			node1 >= adjacencyList.size() || node2 >= adjacencyList.size())
-			throw new IndexOutOfBoundsException();
+		checkNodeIndex(node1, node2);
 
 		adjacencyList.get(node1).add(node2);
 		adjacencyList.get(node2).add(node1);
@@ -53,9 +51,7 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 	
 	@Override
 	public void removeEdge(int node1, int node2) {
-		if (node1 < 0 || node2 < 0 || 
-			node1 >= adjacencyList.size() || node2 >= adjacencyList.size())
-			throw new IndexOutOfBoundsException();
+		checkNodeIndex(node1, node2);
 		
 		//check if there is a edge between the nodes
 		if (adjacencyList.get(node1).contains(node2) &&
@@ -65,6 +61,21 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 			int removeIndex2 = adjacencyList.get(node1).indexOf(node2);
 			adjacencyList.get(node1).remove(removeIndex2);
 			adjacencyList.get(node2).remove(removeIndex1);
+		}
+	}
+	
+	@Override
+	public boolean hasEdge(int node1, int node2) {
+		checkNodeIndex(node1, node2);
+		
+		return adjacencyList.get(node2).indexOf(node1) >= 0;
+	}
+	
+	private void checkNodeIndex(int ...indices) {
+		for (int index : indices) {
+			if (index < 0 || index >= adjacencyList.size()) {
+				throw new IndexOutOfBoundsException();
+			}
 		}
 	}
 

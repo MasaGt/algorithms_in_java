@@ -60,4 +60,18 @@ class SimpleAdjacencyListUndirectedGraphTest {
 			assertThrows(IndexOutOfBoundsException.class, () -> {graph.removeEdge(0, 5);});
 		}
 	}
+	
+	@Nested
+	class HasEdgeTests {
+		@Test
+		void checkExistingEdge() {
+			graph.addEdge(1, 0);
+			assertTrue(graph.hasEdge(0, 1));
+			assertTrue(graph.hasEdge(1, 0));
+		}
+		@Test
+		void checkInexstingEdge() {
+			assertFalse(graph.hasEdge(0, 1));
+		}
+	}
 }
