@@ -48,4 +48,28 @@ class AdjacencyListUndirectedGraphTest {
 			assertEquals("[A]", Arrays.toString(graph.getNodes()));
 		}
 	}
+	
+	@Nested
+	class AddEdgeTests {
+		@Test
+		void addValidEdge() {
+			graph.addNode("A");
+			graph.addNode("B");
+			graph.addEdge("A", "B");
+			graph.addNode("C");
+			graph.addEdge("C", "A");
+			assertEquals("[A, B] [B, A], [A, C] [C, A]", graph.toString());
+		}
+		@Test
+		void addInValidEdge() {
+			graph.addNode("A");
+			assertThrows(IllegalArgumentException.class, () -> {graph.addEdge("A", null);;});
+		}
+		@Test
+		void addEdgeToinExistingNode() {
+			graph.addNode("A");
+			graph.addEdge("A", "B");
+			assertEquals("", graph.toString());
+		}
+	}
 }
