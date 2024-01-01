@@ -74,4 +74,17 @@ class SimpleAdjacencyListUndirectedGraphTest {
 			assertFalse(graph.hasEdge(0, 1));
 		}
 	}
+	
+	@Nested
+	class ClearTests {
+		@Test
+		void clear() {
+			graph.addEdge(0, 1);
+			graph.addEdge(1, 2);
+			graph.addEdge(3, 4);
+			graph.clear();
+			String expect = "0: \n1: \n2: \n3: \n4: \n";
+			assertEquals(expect, graph.toString());
+		}
+	}
 }

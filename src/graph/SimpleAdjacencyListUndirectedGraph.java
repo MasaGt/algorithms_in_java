@@ -78,6 +78,11 @@ public class SimpleAdjacencyListUndirectedGraph implements SimpleAdjacencyListGr
 			}
 		}
 	}
+	
+	@Override
+	public void clear() {
+		initAdjacencyList(adjacencyList.size());
+	}
 
 	/**
 	 * String representation of this graph.

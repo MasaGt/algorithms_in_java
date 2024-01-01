@@ -23,4 +23,9 @@ public interface SimpleAdjacencyListGraph {
 	 * @param node2 index of the node2 in this graph
 	 */
 	public boolean hasEdge(int node1, int node2);
+	
+	/**
+	 * Clear this graph = remove all the edges
+	 */
+	public void clear();
 }
