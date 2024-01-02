@@ -99,8 +99,8 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 
 	@Override
 	public boolean hasNode(T value) {
-		// TODO Auto-generated method stub
-		return false;
+		nullCheck(value);
+		return adjacencyList.containsKey(new Node<T>(value));
 	}
 
 	@Override

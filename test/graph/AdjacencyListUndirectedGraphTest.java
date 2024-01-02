@@ -146,4 +146,21 @@ class AdjacencyListUndirectedGraphTest {
 			assertThrows(IllegalArgumentException.class, () -> {graph.hasEdge("A", null);});
 		}
 	}
+	
+	@Nested
+	class HasNodeTests {
+		@Test
+		void checkExistingNode () {
+			graph.addNode("A");
+			assertTrue(graph.hasNode("A"));
+		}
+		@Test
+		void checkInexistingNode () {
+			assertFalse(graph.hasNode("A"));
+		}
+		@Test
+		void checkInvalidNode() {
+			assertThrows(IllegalArgumentException.class, () -> {graph.hasNode(null);});
+		}
+	}
 }
