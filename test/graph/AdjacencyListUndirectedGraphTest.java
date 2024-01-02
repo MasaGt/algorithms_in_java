@@ -200,4 +200,41 @@ class AdjacencyListUndirectedGraphTest {
 			assertEquals("", graph.toString());
 		}
 	}
+	
+	@Nested
+	class Operations {
+		@Test
+		void operationsGraph() {
+			String A = "A";
+			graph.addNode(A);
+			//add loop edge
+			graph.addEdge(A, A);
+			assertEquals("[A, A]", graph.toString());
+			assertTrue(graph.hasEdge(A, A));
+			//remove loop edge
+			assertTrue(graph.removeEdge(A, A));
+			assertFalse(graph.hasEdge(A, A));
+			assertEquals("", graph.toString());
+			
+			String B = "B";
+			graph.addNode(B);
+			String C = "C";
+			graph.addNode(C);
+
+			graph.addEdge(A, B);
+			graph.addEdge(A, C);
+			graph.addEdge(B, C);
+			String completeGraph = "[A, B] [B, A], [A, C] [C, A], [B, C] [C, B]";
+			
+			assertEquals(completeGraph, graph.toString());
+			
+			assertTrue(graph.hasEdge(A, B));
+			assertTrue(graph.hasNode(B));
+			assertEquals(2, graph.degree(A));
+			
+			graph.clear();
+			assertEquals("", graph.toString());
+			assertEquals("[]", Arrays.toString(graph.getNodes()));
+		}
+	}
 }
