@@ -89,8 +89,12 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 
 	@Override
 	public boolean hasEdge(T value1, T value2) {
-		// TODO Auto-generated method stub
-		return false;
+		nullCheck(value1, value2);
+		Node<T> from = new Node<T>(value1);
+		Node<T> to = new Node<T>(value2);
+		//return false, if there is not a node that has the specfied value.
+		if (!adjacencyList.containsKey(from) || !adjacencyList.containsKey(to)) return false;
+		return adjacencyList.get(from).contains(to);
 	}
 
 	@Override

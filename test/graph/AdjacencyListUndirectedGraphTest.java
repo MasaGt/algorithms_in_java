@@ -124,4 +124,26 @@ class AdjacencyListUndirectedGraphTest {
 			assertThrows(IllegalArgumentException.class, () -> {graph.removeEdge("A", null);});
 		}
 	}
+	
+	@Nested
+	class HasEdgeTests {
+		@Test
+		void checkExistingEdge() {
+			graph.addNode("A");
+			graph.addNode("B");
+			graph.addEdge("A", "B");
+			assertTrue(graph.hasEdge("A", "B"));
+		}
+		@Test
+		void checkInexstingEdge() {
+			graph.addNode("A");
+			graph.addNode("B");
+			assertFalse(graph.hasEdge("A", "B"));
+		}
+		@Test
+		void checkInvalidEdge () {
+			graph.addNode("A");
+			assertThrows(IllegalArgumentException.class, () -> {graph.hasEdge("A", null);});
+		}
+	}
 }
