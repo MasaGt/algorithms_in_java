@@ -93,5 +93,35 @@ class AdjacencyListUndirectedGraphTest {
 			graph.removeNode("C");
 			assertEquals("[A, B] [B, A]", graph.toString());
 		}
+		@Test
+		void removeInvalidNode() {
+			assertThrows(IllegalArgumentException.class, () -> {graph.removeNode(null);});
+		}
+		
+	}
+	
+	@Nested
+	class RemoveEdgeTests {
+		@Test
+		void removeExistingEdge() {
+			graph.addNode("A");
+			graph.addNode("B");
+			graph.addEdge("A", "B");
+			graph.removeEdge("A", "B");
+			assertEquals("", graph.toString());
+		}
+		@Test
+		void removeInexistingEdge() {
+			graph.addNode("A");
+			graph.addNode("B");
+			graph.addEdge("A", "B");
+			graph.removeEdge("A", "C");
+			assertEquals("[A, B] [B, A]", graph.toString());
+		}
+		@Test
+		void removeInvaidEdge() {
+			graph.addNode("A");
+			assertThrows(IllegalArgumentException.class, () -> {graph.removeEdge("A", null);});
+		}
 	}
 }

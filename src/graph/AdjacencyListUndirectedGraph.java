@@ -54,6 +54,7 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 
 	@Override
 	public boolean removeNode(T value) {
+		nullCheck(value);
 		Node<T> targetNode = new Node<T>(value);
 		if (!adjacencyList.containsKey(targetNode)) return false;
 		adjacencyList.remove(targetNode);
@@ -68,8 +69,14 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 
 	@Override
 	public boolean removeEdge(T value1, T value2) {
-		// TODO Auto-generated method stub
-		return false;
+		nullCheck(value1, value2);
+		Node<T> from = new Node<T>(value1);
+		Node<T> to = new Node<T>(value2);
+		//do nothing is there is not a node that has the specified value in this graph.
+		if (!adjacencyList.containsKey(from) || !adjacencyList.containsKey(to)) return false;
+		adjacencyList.get(from).remove(to);
+		adjacencyList.get(to).remove(from);
+		return true;
 	}
 
 	//better to change return type from Node<T>[] to List<Node<T>>
