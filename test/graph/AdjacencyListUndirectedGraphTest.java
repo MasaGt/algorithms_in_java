@@ -186,4 +186,18 @@ class AdjacencyListUndirectedGraphTest {
 			assertThrows(IllegalArgumentException.class, () -> {graph.degree(null); });
 		}
 	}
+	
+	@Nested
+	class ClearTests {
+		@Test
+		void clear() {
+			graph.addNode("A");
+			graph.addNode("B");
+			graph.addEdge("A", "B");
+			graph.clear();
+			
+			assertEquals("[]", Arrays.toString(graph.getNodes()));
+			assertEquals("", graph.toString());
+		}
+	}
 }

@@ -113,8 +113,7 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		adjacencyList = new LinkedHashMap<Node<T>, Set<Node<T>>>();
 	}
 	
 	/**
