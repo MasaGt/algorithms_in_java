@@ -163,4 +163,27 @@ class AdjacencyListUndirectedGraphTest {
 			assertThrows(IllegalArgumentException.class, () -> {graph.hasNode(null);});
 		}
 	}
+	
+	@Nested
+	class DegreeTests {
+		@Test
+		void zeroAdjacentNode() {
+			graph.addNode("A");
+			graph.addNode("B");
+			assertEquals(0, graph.degree("A"));
+		}
+		void twoAdjacentNode() {
+			graph.addNode("A");
+			graph.addNode("B");
+			graph.addNode("C");
+			
+			graph.addEdge("B", "A");
+			graph.addEdge("C", "A");
+			assertEquals(2, graph.degree("A"));
+		}
+		@Test
+		void checkDegreeOfInvalidNode() {
+			assertThrows(IllegalArgumentException.class, () -> {graph.degree(null); });
+		}
+	}
 }

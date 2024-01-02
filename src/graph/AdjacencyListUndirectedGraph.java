@@ -105,8 +105,10 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 
 	@Override
 	public int degree(T value) {
-		// TODO Auto-generated method stub
-		return 0;
+		nullCheck(value);
+		Node<T> node = new Node<T>(value);
+		if (!adjacencyList.containsKey(node)) return 0;
+		return adjacencyList.get(node).size();
 	}
 
 	@Override
