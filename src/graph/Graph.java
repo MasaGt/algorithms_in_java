@@ -1,5 +1,7 @@
 package graph;
 
+import java.util.List;
+
 public interface Graph<T> {
 	
 	/**
@@ -61,4 +63,18 @@ public interface Graph<T> {
 	 * Remove all the nodes and edges from this graph
 	 */
 	public void clear();
+	
+	/**
+	 * Breadth-First Search
+	 * @param start node where bsf starts from 
+	 * @return List of searched nodes. 
+	 */
+	public List<T> bfs(T start);
+	
+	/**
+	 * Breadth-First Search for disconnected graph
+	 * @param start node where bsf starts from
+	 * @return List of searched nodes.
+	 */
+	public List<T> bfsToDisconnectedGraph(T start);
 }

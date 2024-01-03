@@ -15,9 +15,12 @@ import org.junit.jupiter.api.Test;
 public class AdjacencyMatrixUndirectedGraphTest {
 
 	private AdjacencyMatrixUndirectedGraph<Integer> graph;
+	private Graph<String> smallGraph;
+	
 	@BeforeEach
 	void prep() {
 		graph = new AdjacencyMatrixUndirectedGraph<Integer>();
+		smallGraph = new AdjacencyMatrixUndirectedGraph<String>(3);
 	}
 	
 	@Nested
@@ -225,11 +228,72 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	}
 	
 	@Nested
+	class BFSTests {
+		@Test
+		void bfsToCompleteGraph() {
+			//use 3*3 adjacency matrix graph
+			String nodeA = "A";
+			String nodeB = "B";
+			String nodeC = "C";
+			smallGraph.addNode(nodeA);
+			smallGraph.addNode(nodeB);
+			smallGraph.addNode(nodeC);
+			smallGraph.addEdge(nodeA, nodeB);
+			smallGraph.addEdge(nodeB, nodeC);
+			smallGraph.addEdge(nodeC, nodeA);
+			assertEquals("[A, B, C]", smallGraph.bfs("A").toString());
+		}
+		@Test
+		void bfsToDisconnectedGraph() {
+			//only the nodes that are connected to the specified node should be showed.
+			String nodeA = "A";
+			String nodeB = "B";
+			String nodeC = "C";
+			smallGraph.addNode(nodeA);
+			smallGraph.addNode(nodeB);
+			smallGraph.addNode(nodeC);
+			// the node that is connected to node A is only node C
+			smallGraph.addEdge(nodeA, nodeC);
+			assertEquals("[A, C]", smallGraph.bfs("A").toString());
+		}
+	}
+	
+	@Nested
+	class BFSToDisconnectedGraphTests {
+		@Test
+		void bfsToCompleteGraph() {
+			//use 3*3 adjacency matrix graph
+			String nodeA = "A";
+			String nodeB = "B";
+			String nodeC = "C";
+			smallGraph.addNode(nodeA);
+			smallGraph.addNode(nodeB);
+			smallGraph.addNode(nodeC);
+			smallGraph.addEdge(nodeA, nodeB);
+			smallGraph.addEdge(nodeB, nodeC);
+			smallGraph.addEdge(nodeC, nodeA);
+			assertEquals("[A, B, C]", smallGraph.bfsToDisconnectedGraph("A").toString());
+		}
+		@Test
+		void bfsToDisconnectedGraph() {
+			//all the nodes in the graph should be showed
+			String nodeA = "A";
+			String nodeB = "B";
+			String nodeC = "C";
+			smallGraph.addNode(nodeA);
+			smallGraph.addNode(nodeB);
+			smallGraph.addNode(nodeC);
+			// node B is disconnected
+			smallGraph.addEdge(nodeA, nodeC);
+			assertEquals("[A, C, B]", smallGraph.bfsToDisconnectedGraph("A").toString());
+		}
+	}
+	
+	@Nested
 	class Operations {
 		@Test
 		void operationsGraph() {
-			//create 3*3 adjacency matrix graph
-			Graph<String> smallGraph = new AdjacencyMatrixUndirectedGraph<String>(3);
+			//use 3*3 adjacency matrix graph
 			String A = "A";
 			smallGraph.addNode(A);
 			//add loop edge

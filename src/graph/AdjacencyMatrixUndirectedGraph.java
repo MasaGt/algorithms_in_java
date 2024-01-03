@@ -1,7 +1,12 @@
 package graph;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
+
+import queue.LinkQueue;
+import queue.Queue;
 
 /**
  * This is an undirected graph based on adjacency matrix.
@@ -238,5 +243,69 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 			content.delete(content.length() - 2, content.length());
 		}
 		return content.toString();
+	}
+
+	@Override
+	public List<T> bfs(T start) {
+		nullCheck(start);
+		int nodeIndex = indexOf(start);
+		if (nodeIndex < 0) throw new NoSuchElementException();
+		
+		//correspond to the indices of adjacencyMatrix
+		boolean[] visited = new boolean[adjacencyMatrix.length];
+		/**
+		 * visited
+		 * [0, 1, 2, 3, 4]
+		 * 
+		 * adjacencyMatrix
+		 *  0, 1, 2, 3, 4
+		 * [~, ~, ~, ~, ~] 0
+		 * [~, ~, ~, ~, ~] 1
+		 * ...
+		 */
+		Queue<Integer> queue = new LinkQueue<Integer>(); //queue of the index of node
+		List<T> searched = new ArrayList<T>(); //list that stored visited node in order
+		
+		//add a node to a queue.
+		queue.enqueue(nodeIndex);
+
+		while (!queue.isEmpty()) {
+			int currentNode = queue.dequeue();
+			if (!visited[currentNode]) {
+				searched.add(nodeArray[currentNode].getValue());
+				visited[currentNode] = true;
+				
+				//iterate through the neighbor nodes of currentNode
+				for (int i = 0; i < adjacencyMatrix[currentNode].length; i++) {
+					/*
+					 * adjNode != i: ignore loop
+					 * adjacencyMatrix[current][i]: if node at i index is connected to current node
+					 * visited[i]: if node at i is not visited yet
+					*/
+					if (currentNode != i && adjacencyMatrix[currentNode][i] && !visited[i]) {
+						queue.enqueue(i);
+					}
+				}
+			}
+		}
+		return searched;
+	}
+
+	@Override
+	public List<T> bfsToDisconnectedGraph(T start) {
+		nullCheck(start);
+		int nodeIndex = indexOf(start);
+		if (nodeIndex < 0) throw new NoSuchElementException();
+		
+		//bfs for all nodes connected to "start"
+		List<T> searched = bfs(start);
+		
+		//bfs for rest of the disconnected nodes
+		for (int i = 0; i < adjacencyMatrix.length; i++) {
+			if (!searched.contains(nodeArray[i].getValue())) {
+				searched.addAll(bfs(nodeArray[i].getValue()));
+			}
+		}
+		return searched;
 	}
 }
