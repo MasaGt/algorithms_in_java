@@ -2,9 +2,15 @@ package graph;
 
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.Vector;
+
+import queue.LinkQueue;
+import queue.Queue;
 
 /**
  * This is an undirected graph based on adjacency list.
@@ -161,5 +167,52 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 			content.delete(content.length() - 2, content.length());
 		}
 		return content.toString();
+	}
+
+
+	@Override
+	public List<T> bfs(T start) {
+		nullCheck(start);
+		Node<T> node = new Node<T>(start);
+		if (!adjacencyList.containsKey(node)) throw new NoSuchElementException();
+
+		List<T> visited = new LinkedList<T>();
+		Queue<Node<T>> queue = new LinkQueue<Node<T>>();
+		queue.enqueue(node);
+		
+		while (!queue.isEmpty()) {
+			Node<T> currentNode = queue.dequeue();
+			if (!visited.contains(currentNode.getValue())) {
+				visited.add(currentNode.getValue());
+				
+				//iterate through the neighbor nodes of currentNode.
+				adjacencyList.get(currentNode).forEach((e) -> {
+					//check if a neighbor node is already visited.
+					if (!e.equals(currentNode) && !visited.contains(e.getValue())) {
+						queue.enqueue(e); //push non-visited neighbor node into the queue.
+					}
+				});
+			}
+		}
+		return visited;
+	}
+
+
+	@Override
+	public List<T> bfsToDisconnectedGraph(T start) {
+		nullCheck(start);
+		Node<T> node = new Node<T>(start);
+		if (!adjacencyList.containsKey(node)) throw new NoSuchElementException();
+		
+		//bfs for all nodes connected to "start"
+		List<T> searched = bfs(start);
+		
+		//bfs for rest of the disconnected nodes
+		for (Node<T> currentNode : adjacencyList.keySet()) {
+			if (!searched.contains(currentNode.getValue())) {
+				searched.addAll(bfs(currentNode.getValue()));
+			}
+		}
+		return searched;
 	}
 }

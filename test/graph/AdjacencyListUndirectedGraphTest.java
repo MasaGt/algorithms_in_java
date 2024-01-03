@@ -202,6 +202,68 @@ class AdjacencyListUndirectedGraphTest {
 	}
 	
 	@Nested
+	class BFSTests {
+		@Test
+		void bfsToCompleteGraph() {
+			//use 3*3 adjacency List graph
+			String nodeA = "A";
+			String nodeB = "B";
+			String nodeC = "C";
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addNode(nodeC);
+			graph.addEdge(nodeA, nodeB);
+			graph.addEdge(nodeB, nodeC);
+			graph.addEdge(nodeC, nodeA);
+			assertEquals("[A, B, C]", graph.bfs("A").toString());
+		}
+		@Test
+		void bfsToDisconnectedGraph() {
+			//only the nodes that are connected to the specified node should be showed.
+			String nodeA = "A";
+			String nodeB = "B";
+			String nodeC = "C";
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addNode(nodeC);
+			//node B is disconnected
+			graph.addEdge(nodeA, nodeC);
+			assertEquals("[A, C]", graph.bfs("A").toString());
+		}
+	}
+	
+	@Nested
+	class BFSToDisconnectedGraphTests {
+		@Test
+		void bfsToCompleteGraph() {
+			//use 3*3 adjacency List graph
+			String nodeA = "A";
+			String nodeB = "B";
+			String nodeC = "C";
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addNode(nodeC);
+			graph.addEdge(nodeA, nodeB);
+			graph.addEdge(nodeB, nodeC);
+			graph.addEdge(nodeC, nodeA);
+			assertEquals("[A, B, C]", graph.bfsToDisconnectedGraph("A").toString());
+		}
+		@Test
+		void bfsToDisconnectedGraph() {
+			//all the nodes in the graph should be shown including disconnected nodes.
+			String nodeA = "A";
+			String nodeB = "B";
+			String nodeC = "C";
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addNode(nodeC);
+			//node B is disconnected
+			graph.addEdge(nodeA, nodeC);
+			assertEquals("[A, C, B]", graph.bfsToDisconnectedGraph("A").toString());
+		}
+	}
+	
+	@Nested
 	class Operations {
 		@Test
 		void operationsGraph() {
