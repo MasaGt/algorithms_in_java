@@ -290,6 +290,134 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	}
 	
 	@Nested
+	class DFSTests {
+		@Test
+		void dfsToCompleteGraph() {
+			Integer node1 = 1;
+			Integer node2 = 2;
+			Integer node3 = 3;
+			Integer node4 = 4;
+			Integer node5 = 5;
+			
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addNode(node3);
+			graph.addNode(node4);
+			graph.addNode(node5);
+			graph.addEdge(node1, node2);
+			graph.addEdge(node3, node1);
+			graph.addEdge(node2, node4);
+			graph.addEdge(node5, node2);
+			/*
+			 *             node1
+			 *            /     \
+			 *           /       \
+			 *        node2     node3
+			 *        /   \
+			 *       /     \
+			 *    node4   node5
+			 */   
+			
+			assertEquals("[1, 2, 4, 5, 3]", graph.dfs(1).toString());
+		}
+		@Test
+		void dfsToDisconnectedGraph() {
+			//only the nodes that are connected to the specified node should be showed.
+			Integer node1 = 1;
+			Integer node2 = 2;
+			Integer node3 = 3;
+			Integer node4 = 4;
+			Integer node5 = 5;
+			
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addNode(node3);
+			graph.addNode(node4);
+			graph.addNode(node5);
+			graph.addEdge(node1, node2);
+			graph.addEdge(node3, node5);
+			graph.addEdge(node2, node4);
+			
+			/*
+			 *             node1
+			 *            /     
+			 *           /       
+			 *        node2     node3
+			 *        /            \
+			 *       /              \
+			 *    node4           node5
+			 */   
+			
+			//node1, 2, and 4 should be searched from node1
+			assertEquals("[1, 2, 4]", graph.dfs(1).toString());
+		}
+	}
+	
+	@Nested
+	class DFSToDisconnectedGraphTests {
+		@Test
+		void dfsToCompleteGraph() {
+			Integer node1 = 1;
+			Integer node2 = 2;
+			Integer node3 = 3;
+			Integer node4 = 4;
+			Integer node5 = 5;
+			
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addNode(node3);
+			graph.addNode(node4);
+			graph.addNode(node5);
+			graph.addEdge(node1, node2);
+			graph.addEdge(node3, node1);
+			graph.addEdge(node2, node4);
+			graph.addEdge(node5, node2);
+			/*
+			 *             node1
+			 *            /     \
+			 *           /       \
+			 *        node2     node3
+			 *        /   \
+			 *       /     \
+			 *    node4   node5
+			 */   
+			
+			assertEquals("[1, 2, 4, 5, 3]", graph.dfsToDisconnectedGraph(1).toString());
+		}
+		@Test
+		void dfsToDisconnectedGraph() {
+			//all the nodes in the graph should be showed
+			Integer node1 = 1;
+			Integer node2 = 2;
+			Integer node3 = 3;
+			Integer node4 = 4;
+			Integer node5 = 5;
+			
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addNode(node3);
+			graph.addNode(node4);
+			graph.addNode(node5);
+			graph.addEdge(node1, node2);
+			graph.addEdge(node3, node5);
+			graph.addEdge(node2, node4);
+			
+			/*
+			 *             node1
+			 *            /     
+			 *           /       
+			 *        node2     node3
+			 *        /            \
+			 *       /              \
+			 *    node4           node5
+			 */   
+			
+			//node1, 2, and 4 should be searched first, then node3 and 5.
+			assertEquals("[1, 2, 4, 3, 5]", graph.dfsToDisconnectedGraph(1).toString());
+		}
+	}
+	
+	@Nested
 	class Operations {
 		@Test
 		void operationsGraph() {

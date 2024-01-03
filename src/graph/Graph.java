@@ -77,4 +77,18 @@ public interface Graph<T> {
 	 * @return List of searched nodes.
 	 */
 	public List<T> bfsToDisconnectedGraph(T start);
+	
+	/**
+	 * Depth-First Search
+	 * @param start node where dsf starts from 
+	 * @return List of searched nodes. 
+	 */
+	public List<T> dfs(T start);
+	
+	/**
+	 * Depth-First Search for disconnected graph
+	 * @param start node where bsf starts from
+	 * @return List of searched nodes.
+	 */
+	public List<T> dfsToDisconnectedGraph(T start);
 }

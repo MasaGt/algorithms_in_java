@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Stack;
 
 import queue.LinkQueue;
 import queue.Queue;
@@ -306,6 +307,52 @@ public class AdjacencyMatrixUndirectedGraph<T> implements Graph<T> {
 				searched.addAll(bfs(nodeArray[i].getValue()));
 			}
 		}
+		return searched;
+	}
+
+	@Override
+	public List<T> dfs(T start) {
+		nullCheck(start);
+		int nodeIndex = indexOf(start);
+		if (nodeIndex < 0) throw new NoSuchElementException();
+		
+		boolean[] visited = new boolean[adjacencyMatrix.length];
+		Stack<Integer> stack = new Stack<Integer>(); //stack of the index of node
+		List<T> searched = new ArrayList<T>(); //list that stored visited node in order
+		
+		stack.push(nodeIndex);
+		
+		while (!stack.isEmpty()) {
+			int currentNode = stack.pop();
+			if (!visited[currentNode]) {
+				searched.add(nodeArray[currentNode].getValue());
+				visited[currentNode] = true;
+				
+				//traverse from right to left
+				for (int i = adjacencyMatrix.length - 1; i > 0; i--) {
+					if (currentNode != i && adjacencyMatrix[currentNode][i] && !visited[i]) {
+						stack.push(i);
+					}
+				}
+			}
+		}
+		return searched;
+	}
+
+	@Override
+	public List<T> dfsToDisconnectedGraph(T start) {
+		nullCheck(start);
+		int nodeIndex = indexOf(start);
+		if (nodeIndex < 0) throw new NoSuchElementException();
+		
+		List<T> searched = dfs(start);
+		
+		for (int i = 0; i < adjacencyMatrix.length; i++) {
+			if (!searched.contains(nodeArray[i].getValue())) {
+				searched.addAll(bfs(nodeArray[i].getValue()));
+			}
+		}
+		
 		return searched;
 	}
 }
