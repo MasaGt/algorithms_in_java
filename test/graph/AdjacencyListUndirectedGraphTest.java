@@ -19,6 +19,7 @@ class AdjacencyListUndirectedGraphTest {
 	private String nodeC = "C";
 	private String nodeD = "D";
 	private String nodeE = "E";
+	private String nodeF = "F";
 	
 	@BeforeEach
 	void prep() {
@@ -50,18 +51,20 @@ class AdjacencyListUndirectedGraphTest {
 		 *            /     
 		 *           /       
 		 *        nodeB     nodeC
-		 *        /            \
-		 *       /              \
-		 *    nodeD           nodeE
+		 *        /   \       \
+		 *       /     \       \
+		 *    nodeD   nodeE    nodeF
 		 */
 		disconnectedGraph.addNode(nodeA);
 		disconnectedGraph.addNode(nodeB);
 		disconnectedGraph.addNode(nodeC);
 		disconnectedGraph.addNode(nodeD);
 		disconnectedGraph.addNode(nodeE);
+		disconnectedGraph.addNode(nodeF);
 		disconnectedGraph.addEdge(nodeA, nodeB);
-		disconnectedGraph.addEdge(nodeC, nodeE);
+		disconnectedGraph.addEdge(nodeC, nodeF);
 		disconnectedGraph.addEdge(nodeD, nodeB);
+		disconnectedGraph.addEdge(nodeB, nodeE);
 	}
 	
 	@Nested
@@ -252,24 +255,31 @@ class AdjacencyListUndirectedGraphTest {
 	class BFSTests {
 		@Test
 		void bfsToCompleteGraph() {
-			//use 3*3 adjacency List graph
-			graph.addNode(nodeA);
-			graph.addNode(nodeB);
-			graph.addNode(nodeC);
-			graph.addEdge(nodeA, nodeB);
-			graph.addEdge(nodeB, nodeC);
-			graph.addEdge(nodeC, nodeA);
-			assertEquals("[A, B, C]", graph.bfs("A").toString());
+			/*
+			 *             nodeA
+			 *            /     \
+			 *           /       \
+			 *        nodeB     nodeC
+			 *        /   \
+			 *       /     \
+			 *    nodeD   nodeE
+			 */
+			assertEquals("[A, B, C, D, E]", completeGraph.bfs(nodeA).toString());
 		}
 		@Test
 		void bfsToDisconnectedGraph() {
+			/*
+			 *             nodeA
+			 *            /     
+			 *           /       
+			 *        nodeB     nodeC
+			 *        /   \       \
+			 *       /     \       \
+			 *    nodeD   nodeE    nodeF
+			 */
 			//only the nodes that are connected to the specified node should be showed.
-			graph.addNode(nodeA);
-			graph.addNode(nodeB);
-			graph.addNode(nodeC);
-			//node B is disconnected
-			graph.addEdge(nodeA, nodeC);
-			assertEquals("[A, C]", graph.bfs("A").toString());
+			//node C and F are disconnected from nodeA
+			assertEquals("[A, B, D, E]", disconnectedGraph.bfs(nodeA).toString());
 		}
 	}
 	
@@ -277,24 +287,32 @@ class AdjacencyListUndirectedGraphTest {
 	class BFSToDisconnectedGraphTests {
 		@Test
 		void bfsToCompleteGraph() {
-			//use 3*3 adjacency List graph
-			graph.addNode(nodeA);
-			graph.addNode(nodeB);
-			graph.addNode(nodeC);
-			graph.addEdge(nodeA, nodeB);
-			graph.addEdge(nodeB, nodeC);
-			graph.addEdge(nodeC, nodeA);
-			assertEquals("[A, B, C]", graph.bfsToDisconnectedGraph("A").toString());
+			/*
+			 *             nodeA
+			 *            /     \
+			 *           /       \
+			 *        nodeB     nodeC
+			 *        /   \
+			 *       /     \
+			 *    nodeD   nodeE
+			 */
+			//this should works as normal bfs()
+			assertEquals("[A, B, C, D, E]", completeGraph.bfs(nodeA).toString());
 		}
 		@Test
 		void bfsToDisconnectedGraph() {
+			/*
+			 *             nodeA
+			 *            /     
+			 *           /       
+			 *        nodeB     nodeC
+			 *        /   \       \
+			 *       /     \       \
+			 *    nodeD   nodeE    nodeF
+			 */
 			//all the nodes in the graph should be shown including disconnected nodes.
-			graph.addNode(nodeA);
-			graph.addNode(nodeB);
-			graph.addNode(nodeC);
-			//node B is disconnected
-			graph.addEdge(nodeA, nodeC);
-			assertEquals("[A, C, B]", graph.bfsToDisconnectedGraph("A").toString());
+			//node C and E are disconnected from nodeA
+			assertEquals("[A, B, D, E, C, F]", disconnectedGraph.bfsToDisconnectedGraph(nodeA).toString());
 		}
 	}
 	
@@ -311,7 +329,7 @@ class AdjacencyListUndirectedGraphTest {
 			 *       /     \
 			 *    nodeD   nodeE
 			 */
-			assertEquals("[A, B, D, E, C]", completeGraph.dfs("A").toString());
+			assertEquals("[A, B, D, E, C]", completeGraph.dfs(nodeA).toString());
 		}
 		@Test
 		void dfsToDisconnectedGraph() {
@@ -321,11 +339,11 @@ class AdjacencyListUndirectedGraphTest {
 			 *            /     
 			 *           /       
 			 *        nodeB     nodeC
-			 *        /            \
-			 *       /              \
-			 *    nodeD           nodeE
+			 *        /   \       \
+			 *       /     \       \
+			 *    nodeD   nodeE    nodeF
 			 */
-			assertEquals("[A, B, D]", disconnectedGraph.dfs("A").toString());
+			assertEquals("[A, B, D, E]", disconnectedGraph.dfs(nodeA).toString());
 		}
 	}
 	
@@ -343,7 +361,7 @@ class AdjacencyListUndirectedGraphTest {
 			 *       /     \
 			 *    nodeD   nodeE
 			 */   
-			assertEquals("[A, B, D, E, C]", completeGraph.dfsToDisconnectedGraph("A").toString());
+			assertEquals("[A, B, D, E, C]", completeGraph.dfsToDisconnectedGraph(nodeA).toString());
 		}
 		@Test
 		void dfsToDisconnectedGraph() {
@@ -353,11 +371,11 @@ class AdjacencyListUndirectedGraphTest {
 			 *            /     
 			 *           /       
 			 *        nodeB     nodeC
-			 *        /            \
-			 *       /              \
-			 *    nodeD           nodeE
+			 *        /   \       \
+			 *       /     \       \
+			 *    nodeD   nodeE    nodeF
 			 */
-			assertEquals("[A, B, D, C, E]", disconnectedGraph.dfsToDisconnectedGraph("A").toString());
+			assertEquals("[A, B, D, E, C, F]", disconnectedGraph.dfsToDisconnectedGraph(nodeA).toString());
 		}
 	}
 	
