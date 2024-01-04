@@ -15,7 +15,20 @@ import org.junit.jupiter.api.Test;
 public class AdjacencyMatrixUndirectedGraphTest {
 
 	private AdjacencyMatrixUndirectedGraph<Integer> graph;
+	private AdjacencyMatrixUndirectedGraph<Integer> completeGraph;
+	private AdjacencyMatrixUndirectedGraph<Integer> disconnectedGraph;
+	private Integer node1 = 1;
+	private Integer node2 = 2;
+	private Integer node3 = 3;
+	private Integer node4 = 4;
+	private Integer node5 = 5;
+	private Integer node6 = 6;
+	
 	private Graph<String> smallGraph;
+	private String nodeA = "A";
+	private String nodeB = "B";
+	private String nodeC = "C";
+	private String nodeD = "D";
 	
 	@BeforeEach
 	void prep() {
@@ -49,19 +62,19 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class AddNodeTests {
 		@Test
 		void addNode() {
-			graph.addNode(10);
+			graph.addNode(node1);
 			//there is no connection in the graph
 			assertEquals("", graph.toString());
 			assertEquals(1, graph.getNodes().length);
-			assertEquals("[10]", Arrays.toString(graph.getNodes()));
+			assertEquals("[1]", Arrays.toString(graph.getNodes()));
 		}
 		@Test
 		void addDuplicateNode() {
-			graph.addNode(10);
+			graph.addNode(node1);
 			//this should be ignored
-			graph.addNode(10);
+			graph.addNode(node1);
 			assertEquals(1, graph.getNodes().length);
-			assertEquals("[10]", Arrays.toString(graph.getNodes()));
+			assertEquals("[1]", Arrays.toString(graph.getNodes()));
 		}
 	}
 	
@@ -72,9 +85,9 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class AddEdgeTests {
 		@Test
 		void addEdge() {
-			graph.addNode(1);
-			graph.addNode(2);
-			graph.addEdge(1, 2);
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addEdge(node1, node2);
 			assertEquals("[1, 2] [2, 1]", graph.toString());
 		}
 	}
@@ -86,8 +99,8 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		 */
 		@Test
 		void removeExstingNode() {
-			graph.addNode(1);
-			assertTrue(graph.removeNode(1));
+			graph.addNode(node1);
+			assertTrue(graph.removeNode(node1));
 			assertEquals(0, graph.getNodes().length);
 			assertEquals("[]", Arrays.toString(graph.getNodes()));
 		}
@@ -96,8 +109,8 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		 */
 		@Test
 		void removeInexstingNode() {
-			graph.addNode(1);
-			assertFalse(graph.removeNode(2));
+			graph.addNode(node1);
+			assertFalse(graph.removeNode(node2));
 			assertEquals(1, graph.getNodes().length);
 			assertEquals("[1]", Arrays.toString(graph.getNodes()));
 		}
@@ -109,10 +122,10 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			 * After remove nodeA
 			 * ->		[NodeB]
 			 */
-			graph.addNode(1);
-			graph.addNode(2);
-			graph.addEdge(1, 2);
-			graph.removeNode(1);
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addEdge(node1, node2);
+			graph.removeNode(node1);
 			
 			//edges between NodeA and NodeB sould be removed too
 			assertEquals("", graph.toString());
@@ -123,19 +136,19 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class RemoveEdgeTests {
 		@Test
 		void removeExstingEdge() {
-			graph.addNode(1);
-			graph.addNode(2);
-			graph.addEdge(1, 2);
-			assertTrue(graph.removeEdge(1, 2));
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addEdge(node1, node2);
+			assertTrue(graph.removeEdge(node1, node2));
 			assertEquals("", graph.toString());
 		}
 		@Test
 		void removeInexstingEdge() {
-			graph.addNode(1);
-			graph.addNode(2);
-			graph.addEdge(1, 2);
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addEdge(node1, node2);
 			//try to remove edges that does not exist in the graph
-			assertFalse(graph.removeEdge(1, 3));
+			assertFalse(graph.removeEdge(node1, node3));
 			assertEquals("[1, 2] [2, 1]", graph.toString());
 		}
 	}
@@ -144,11 +157,11 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class GetNodesTests {
 		@Test
 		void getNodes() {
-			graph.addNode(1);
-			graph.addNode(2);
-			graph.addNode(100);
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addNode(node3);
 			assertEquals(3, graph.getNodes().length);
-			assertEquals("[1, 2, 100]", Arrays.toString(graph.getNodes()));
+			assertEquals("[1, 2, 3]", Arrays.toString(graph.getNodes()));
 		}
 	}
 	
@@ -156,20 +169,16 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class HasEdgeTests {
 		@Test
 		void checkExistingEdge() {
-			Integer value1 = 1;
-			Integer value2 = 2;
-			graph.addNode(value1);
-			graph.addNode(value2);
-			graph.addEdge(value1, value2);
-			assertTrue(graph.hasEdge(value1, value2));
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addEdge(node1, node2);
+			assertTrue(graph.hasEdge(node1, node2));
 		}
 		@Test
 		void checkInexstingEdge() {
-			Integer value1 = 1;
-			Integer value2 = 2;
-			graph.addNode(value1);
-			graph.addNode(value2);
-			assertFalse(graph.hasEdge(value1, value2));
+			graph.addNode(node1);
+			graph.addNode(node2);
+			assertFalse(graph.hasEdge(node1, node2));
 		}
 	}
 	
@@ -177,13 +186,13 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class HasNodeTests {
 		@Test
 		void checkExistingNode() {
-			graph.addNode(1);
-			assertTrue(graph.hasNode(1));
+			graph.addNode(node1);
+			assertTrue(graph.hasNode(node1));
 		}
 		@Test
 		void checkInexistingNode() {
-			graph.addNode(1);
-			assertFalse(graph.hasNode(2));
+			graph.addNode(node1);
+			assertFalse(graph.hasNode(node2));
 		}
 	}
 	
@@ -191,18 +200,18 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class DegreeTests {
 		@Test
 		void zeroAdjacentNode() {
-			graph.addNode(1);
-			assertEquals(0, graph.degree(1));
+			graph.addNode(node1);
+			assertEquals(0, graph.degree(node1));
 		}
 		void twoAdjacentNode() {
-			graph.addNode(1);
-			graph.addNode(2);
-			graph.addNode(3);
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addNode(node3);
 			//connect 2 to 1
-			graph.addEdge(2, 1);
+			graph.addEdge(node2, node1);
 			//connect 3 to 1
-			graph.addEdge(3, 1);
-			assertEquals(2, graph.degree(1));
+			graph.addEdge(node3, node1);
+			assertEquals(2, graph.degree(node1));
 		}
 		@Test
 		void passNull() {
@@ -210,7 +219,7 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		}
 		@Test
 		void passInExistingNode() {
-			assertThrows(NoSuchElementException.class, () -> { graph.degree(2); });
+			assertThrows(NoSuchElementException.class, () -> { graph.degree(node2); });
 		}
 	}
 	
@@ -218,9 +227,9 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class ClearTests {
 		@Test
 		void clear() {
-			graph.addNode(1);
-			graph.addNode(2);
-			graph.addEdge(1, 2);
+			graph.addNode(node1);
+			graph.addNode(node2);
+			graph.addEdge(node1, node2);
 			graph.clear();
 			assertEquals("", graph.toString());
 			assertEquals("[]", Arrays.toString(graph.getNodes()));
@@ -232,9 +241,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		@Test
 		void bfsToCompleteGraph() {
 			//use 3*3 adjacency matrix graph
-			String nodeA = "A";
-			String nodeB = "B";
-			String nodeC = "C";
 			smallGraph.addNode(nodeA);
 			smallGraph.addNode(nodeB);
 			smallGraph.addNode(nodeC);
@@ -246,9 +252,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		@Test
 		void bfsToDisconnectedGraph() {
 			//only the nodes that are connected to the specified node should be showed.
-			String nodeA = "A";
-			String nodeB = "B";
-			String nodeC = "C";
 			smallGraph.addNode(nodeA);
 			smallGraph.addNode(nodeB);
 			smallGraph.addNode(nodeC);
@@ -263,9 +266,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		@Test
 		void bfsToCompleteGraph() {
 			//use 3*3 adjacency matrix graph
-			String nodeA = "A";
-			String nodeB = "B";
-			String nodeC = "C";
 			smallGraph.addNode(nodeA);
 			smallGraph.addNode(nodeB);
 			smallGraph.addNode(nodeC);
@@ -277,9 +277,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		@Test
 		void bfsToDisconnectedGraph() {
 			//all the nodes in the graph should be showed
-			String nodeA = "A";
-			String nodeB = "B";
-			String nodeC = "C";
 			smallGraph.addNode(nodeA);
 			smallGraph.addNode(nodeB);
 			smallGraph.addNode(nodeC);
@@ -293,12 +290,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class DFSTests {
 		@Test
 		void dfsToCompleteGraph() {
-			Integer node1 = 1;
-			Integer node2 = 2;
-			Integer node3 = 3;
-			Integer node4 = 4;
-			Integer node5 = 5;
-			
 			graph.addNode(node1);
 			graph.addNode(node2);
 			graph.addNode(node3);
@@ -323,12 +314,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		@Test
 		void dfsToDisconnectedGraph() {
 			//only the nodes that are connected to the specified node should be showed.
-			Integer node1 = 1;
-			Integer node2 = 2;
-			Integer node3 = 3;
-			Integer node4 = 4;
-			Integer node5 = 5;
-			
 			graph.addNode(node1);
 			graph.addNode(node2);
 			graph.addNode(node3);
@@ -357,12 +342,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class DFSToDisconnectedGraphTests {
 		@Test
 		void dfsToCompleteGraph() {
-			Integer node1 = 1;
-			Integer node2 = 2;
-			Integer node3 = 3;
-			Integer node4 = 4;
-			Integer node5 = 5;
-			
 			graph.addNode(node1);
 			graph.addNode(node2);
 			graph.addNode(node3);
@@ -387,12 +366,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		@Test
 		void dfsToDisconnectedGraph() {
 			//all the nodes in the graph should be showed
-			Integer node1 = 1;
-			Integer node2 = 2;
-			Integer node3 = 3;
-			Integer node4 = 4;
-			Integer node5 = 5;
-			
 			graph.addNode(node1);
 			graph.addNode(node2);
 			graph.addNode(node3);
@@ -422,39 +395,36 @@ public class AdjacencyMatrixUndirectedGraphTest {
 		@Test
 		void operationsGraph() {
 			//use 3*3 adjacency matrix graph
-			String A = "A";
-			smallGraph.addNode(A);
+			smallGraph.addNode(nodeA);
 			//add loop edge
-			smallGraph.addEdge(A, A);
+			smallGraph.addEdge(nodeA, nodeA);
 			assertEquals("[A, A]", smallGraph.toString());
-			assertTrue(smallGraph.hasEdge(A, A));
+			assertTrue(smallGraph.hasEdge(nodeA, nodeA));
 			//remove loop edge
-			assertTrue(smallGraph.removeEdge(A, A));
-			assertFalse(smallGraph.hasEdge(A, A));
+			assertTrue(smallGraph.removeEdge(nodeA, nodeA));
+			assertFalse(smallGraph.hasEdge(nodeA, nodeA));
 			assertEquals("", smallGraph.toString());
 			
-			String B = "B";
-			smallGraph.addNode(B);
-			String C = "C";
-			smallGraph.addNode(C);
+			smallGraph.addNode(nodeB);
+			smallGraph.addNode(nodeC);
 
-			smallGraph.addEdge(A, B);
-			smallGraph.addEdge(A, C);
-			smallGraph.addEdge(B, C);
+			smallGraph.addEdge(nodeA, nodeB);
+			smallGraph.addEdge(nodeA, nodeC);
+			smallGraph.addEdge(nodeB, nodeC);
 			String completeGraph = "[A, B] [B, A], [A, C] [C, A], [B, C] [C, B]";
 			
 			assertEquals(completeGraph, smallGraph.toString());
 			
-			assertTrue(smallGraph.hasEdge(A, B));
-			assertTrue(smallGraph.hasNode(B));
-			assertEquals(2, smallGraph.degree(A));
+			assertTrue(smallGraph.hasEdge(nodeA, nodeB));
+			assertTrue(smallGraph.hasNode(nodeB));
+			assertEquals(2, smallGraph.degree(nodeA));
 			
 			//add node more than the graph size(should be ignored)
-			String D = "D";
-			smallGraph.addNode(D);
-			assertFalse(smallGraph.hasNode(D));
+			
+			smallGraph.addNode(nodeD);
+			assertFalse(smallGraph.hasNode(nodeD));
 			assertEquals(completeGraph, smallGraph.toString());
-			assertEquals("[" + A + ", " + B + ", " + C + "]", Arrays.toString(smallGraph.getNodes()));
+			assertEquals("[" + nodeA + ", " + nodeB + ", " + nodeC + "]", Arrays.toString(smallGraph.getNodes()));
 			
 			smallGraph.clear();
 			assertEquals("", smallGraph.toString());
