@@ -1,12 +1,14 @@
 package graph;
 
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.Stack;
 import java.util.Vector;
 
 import queue.LinkQueue;
@@ -37,7 +39,7 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 		nullCheck(value);
 		Node<T> node = new Node<T>(value);
 		//if there is not a duplicated node, add that node to the graph
-		if (!adjacencyList.containsKey(node)) adjacencyList.put(node, new HashSet<Node<T>>());
+		if (!adjacencyList.containsKey(node)) adjacencyList.put(node, new LinkedHashSet<Node<T>>());
 	}
 
 	@Override
@@ -211,6 +213,75 @@ public class AdjacencyListUndirectedGraph<T> implements Graph<T> {
 		for (Node<T> currentNode : adjacencyList.keySet()) {
 			if (!searched.contains(currentNode.getValue())) {
 				searched.addAll(bfs(currentNode.getValue()));
+			}
+		}
+		return searched;
+	}
+
+
+	@Override
+	public List<T> dfs(T start) {
+		nullCheck(start);
+		Node<T> node = new Node<T>(start);
+		if (!adjacencyList.containsKey(node)) throw new NoSuchElementException();
+		
+		List<T> visited = new LinkedList<T>();
+		Stack<Node<T>> stack = new Stack<Node<T>>();
+		stack.push(node);
+		
+		while (!stack.isEmpty()) {
+			Node<T> currentNode = stack.pop();
+			if (!visited.contains(currentNode.getValue())) {
+				visited.add(currentNode.getValue());
+				
+				/*
+				 * Why iterate throgh backwards
+				 * -> I want to print the nodes from older to newer
+				 * (古く追加された順から出力したいから)
+				 * 
+				 * e.g.
+				 *   older  ----  newer
+				 *   node1  ----  node5
+				 *             node1
+				 *            /     \
+				 *           /       \
+				 *        node2     node3
+				 *         /           \
+				 *        /             \
+				 *     node4           node5
+				 *   
+				 * output should be [node1, node2, node4, node3, node5]
+				 * 
+				 * ★if iterating through forwards, output will be
+				 * [node1, node3, node5, node2, node4]
+				 * because this uses stack.
+				 */				
+				LinkedList<Node<T>> list = new LinkedList<>(adjacencyList.get(currentNode));
+				Iterator<Node<T>> itr = list.descendingIterator();
+				while (itr.hasNext()) {
+					Node<T> neighbNode = itr.next();
+					if (!neighbNode.equals(currentNode) && !visited.contains(neighbNode.getValue())) {
+						stack.push(neighbNode);
+					}
+				}
+			}
+		}
+		return visited;
+	}
+
+
+	@Override
+	public List<T> dfsToDisconnectedGraph(T start) {
+		nullCheck(start);
+		Node<T> node = new Node<T>(start);
+		if (!adjacencyList.containsKey(node)) throw new NoSuchElementException();
+		
+		List<T> searched = dfs(start);
+		
+		
+		for (Node<T> currentNode : adjacencyList.keySet()) {
+			if (!searched.contains(currentNode.getValue())) {
+				searched.addAll(dfs(currentNode.getValue()));
 			}
 		}
 		return searched;

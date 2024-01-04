@@ -11,10 +11,57 @@ import org.junit.jupiter.api.Test;
 class AdjacencyListUndirectedGraphTest {
 
 	private AdjacencyListUndirectedGraph<String> graph;
+	private AdjacencyListUndirectedGraph<String> completeGraph;
+	private AdjacencyListUndirectedGraph<String> disconnectedGraph;
 	
 	@BeforeEach
 	void prep() {
 		graph = new AdjacencyListUndirectedGraph<String>();
+		
+		completeGraph = new AdjacencyListUndirectedGraph<String>();
+		disconnectedGraph = new AdjacencyListUndirectedGraph<String>();
+		String nodeA = "A";
+		String nodeB = "B";
+		String nodeC = "C";
+		String nodeD = "D";
+		String nodeE = "E";
+		
+		/*
+		 *             nodeA
+		 *            /     \
+		 *           /       \
+		 *        nodeB     nodeC
+		 *        /   \
+		 *       /     \
+		 *    nodeD   nodeE
+		 */   
+		completeGraph.addNode(nodeA);
+		completeGraph.addNode(nodeB);
+		completeGraph.addNode(nodeC);
+		completeGraph.addNode(nodeD);
+		completeGraph.addNode(nodeE);
+		completeGraph.addEdge(nodeA, nodeB);
+		completeGraph.addEdge(nodeC, nodeA);
+		completeGraph.addEdge(nodeB, nodeD);
+		completeGraph.addEdge(nodeE, nodeB);
+		
+		/*
+		 *             nodeA
+		 *            /     
+		 *           /       
+		 *        nodeB     nodeC
+		 *        /            \
+		 *       /              \
+		 *    nodeD           nodeE
+		 */
+		disconnectedGraph.addNode(nodeA);
+		disconnectedGraph.addNode(nodeB);
+		disconnectedGraph.addNode(nodeC);
+		disconnectedGraph.addNode(nodeD);
+		disconnectedGraph.addNode(nodeE);
+		disconnectedGraph.addEdge(nodeA, nodeB);
+		disconnectedGraph.addEdge(nodeC, nodeE);
+		disconnectedGraph.addEdge(nodeD, nodeB);
 	}
 	
 	@Nested
@@ -260,6 +307,69 @@ class AdjacencyListUndirectedGraphTest {
 			//node B is disconnected
 			graph.addEdge(nodeA, nodeC);
 			assertEquals("[A, C, B]", graph.bfsToDisconnectedGraph("A").toString());
+		}
+	}
+	
+	@Nested
+	class DFSTests {
+		@Test
+		void dfsToCompleteGraph() {
+			/*
+			 *             nodeA
+			 *            /     \
+			 *           /       \
+			 *        nodeB     nodeC
+			 *        /   \
+			 *       /     \
+			 *    nodeD   nodeE
+			 */   
+			assertEquals("[A, B, D, E, C]", completeGraph.dfs("A").toString());
+		}
+		@Test
+		void dfsToDisconnectedGraph() {
+			//only the nodes that are connected to the specified node should be showed.
+			/*
+			 *             nodeA
+			 *            /     
+			 *           /       
+			 *        nodeB     nodeC
+			 *        /            \
+			 *       /              \
+			 *    nodeD           nodeE
+			 */
+			assertEquals("[A, B, D]", disconnectedGraph.dfs("A").toString());
+		}
+	}
+	
+	@Nested
+	class DFSToDisconnectedGraphTests {
+		@Test
+		void dfsToCompleteGraph() {
+			//like dfs(), all the node should be searched.
+			/*
+			 *             nodeA
+			 *            /     \
+			 *           /       \
+			 *        nodeB     nodeC
+			 *        /   \
+			 *       /     \
+			 *    nodeD   nodeE
+			 */   
+			assertEquals("[A, B, D, E, C]", completeGraph.dfsToDisconnectedGraph("A").toString());
+		}
+		@Test
+		void dfsToDisconnectedGraph() {
+			//nodeA, B, and D should be searched first, then nodeC and E.
+			/*
+			 *             nodeA
+			 *            /     
+			 *           /       
+			 *        nodeB     nodeC
+			 *        /            \
+			 *       /              \
+			 *    nodeD           nodeE
+			 */
+			assertEquals("[A, B, D, C, E]", disconnectedGraph.dfsToDisconnectedGraph("A").toString());
 		}
 	}
 	
