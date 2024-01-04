@@ -14,18 +14,18 @@ class AdjacencyListUndirectedGraphTest {
 	private AdjacencyListUndirectedGraph<String> completeGraph;
 	private AdjacencyListUndirectedGraph<String> disconnectedGraph;
 	
+	private String nodeA = "A";
+	private String nodeB = "B";
+	private String nodeC = "C";
+	private String nodeD = "D";
+	private String nodeE = "E";
+	
 	@BeforeEach
 	void prep() {
 		graph = new AdjacencyListUndirectedGraph<String>();
 		
 		completeGraph = new AdjacencyListUndirectedGraph<String>();
 		disconnectedGraph = new AdjacencyListUndirectedGraph<String>();
-		String nodeA = "A";
-		String nodeB = "B";
-		String nodeC = "C";
-		String nodeD = "D";
-		String nodeE = "E";
-		
 		/*
 		 *             nodeA
 		 *            /     \
@@ -78,7 +78,7 @@ class AdjacencyListUndirectedGraphTest {
 	class AddNodeTests {
 		@Test
 		void addValidNode() {
-			graph.addNode("A");
+			graph.addNode(nodeA);
 			assertEquals("[A]", Arrays.toString(graph.getNodes()));
 			assertEquals("", graph.toString());
 		}
@@ -88,9 +88,9 @@ class AdjacencyListUndirectedGraphTest {
 		}
 		@Test
 		void addDuplicateNode() {
-			graph.addNode("A");
+			graph.addNode(nodeA);
 			//this should be ignored
-			graph.addNode("A");
+			graph.addNode(nodeA);
 			assertEquals(1, graph.getNodes().length);
 			assertEquals("[A]", Arrays.toString(graph.getNodes()));
 		}
@@ -100,22 +100,22 @@ class AdjacencyListUndirectedGraphTest {
 	class AddEdgeTests {
 		@Test
 		void addValidEdge() {
-			graph.addNode("A");
-			graph.addNode("B");
-			graph.addEdge("A", "B");
-			graph.addNode("C");
-			graph.addEdge("C", "A");
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addEdge(nodeA, nodeB);
+			graph.addNode(nodeC);
+			graph.addEdge(nodeC, nodeA);
 			assertEquals("[A, B] [B, A], [A, C] [C, A]", graph.toString());
 		}
 		@Test
 		void addInValidEdge() {
-			graph.addNode("A");
-			assertThrows(IllegalArgumentException.class, () -> {graph.addEdge("A", null);;});
+			graph.addNode(nodeA);
+			assertThrows(IllegalArgumentException.class, () -> {graph.addEdge(nodeA, null);;});
 		}
 		@Test
 		void addEdgeToinExistingNode() {
-			graph.addNode("A");
-			graph.addEdge("A", "B");
+			graph.addNode(nodeA);
+			graph.addEdge(nodeA, nodeB);
 			assertEquals("", graph.toString());
 		}
 	}
@@ -124,20 +124,20 @@ class AdjacencyListUndirectedGraphTest {
 	class RemoveNodeTests {
 		@Test
 		void removeExistingNode() {
-			graph.addNode("A");
-			graph.addNode("B");
-			graph.addNode("C");
-			graph.addEdge("A", "B");
-			graph.addEdge("C", "A");
-			graph.removeNode("A");
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addNode(nodeC);
+			graph.addEdge(nodeA, nodeB);
+			graph.addEdge(nodeC, nodeA);
+			graph.removeNode(nodeA);
 			assertEquals("", graph.toString());
 		}
 		@Test
 		void removeInxistingNode() {
-			graph.addNode("A");
-			graph.addNode("B");
-			graph.addEdge("A", "B");
-			graph.removeNode("C");
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addEdge(nodeA, nodeB);
+			graph.removeNode(nodeC);
 			assertEquals("[A, B] [B, A]", graph.toString());
 		}
 		@Test
@@ -151,24 +151,24 @@ class AdjacencyListUndirectedGraphTest {
 	class RemoveEdgeTests {
 		@Test
 		void removeExistingEdge() {
-			graph.addNode("A");
-			graph.addNode("B");
-			graph.addEdge("A", "B");
-			graph.removeEdge("A", "B");
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addEdge(nodeA, nodeB);
+			graph.removeEdge(nodeA, nodeB);
 			assertEquals("", graph.toString());
 		}
 		@Test
 		void removeInexistingEdge() {
-			graph.addNode("A");
-			graph.addNode("B");
-			graph.addEdge("A", "B");
-			graph.removeEdge("A", "C");
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addEdge(nodeA, nodeB);
+			graph.removeEdge(nodeA, nodeC);
 			assertEquals("[A, B] [B, A]", graph.toString());
 		}
 		@Test
 		void removeInvaidEdge() {
-			graph.addNode("A");
-			assertThrows(IllegalArgumentException.class, () -> {graph.removeEdge("A", null);});
+			graph.addNode(nodeA);
+			assertThrows(IllegalArgumentException.class, () -> {graph.removeEdge(nodeA, null);});
 		}
 	}
 	
@@ -176,21 +176,21 @@ class AdjacencyListUndirectedGraphTest {
 	class HasEdgeTests {
 		@Test
 		void checkExistingEdge() {
-			graph.addNode("A");
-			graph.addNode("B");
-			graph.addEdge("A", "B");
-			assertTrue(graph.hasEdge("A", "B"));
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addEdge(nodeA, nodeB);
+			assertTrue(graph.hasEdge(nodeA, nodeB));
 		}
 		@Test
 		void checkInexstingEdge() {
-			graph.addNode("A");
-			graph.addNode("B");
-			assertFalse(graph.hasEdge("A", "B"));
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			assertFalse(graph.hasEdge(nodeA, nodeB));
 		}
 		@Test
 		void checkInvalidEdge () {
-			graph.addNode("A");
-			assertThrows(IllegalArgumentException.class, () -> {graph.hasEdge("A", null);});
+			graph.addNode(nodeA);
+			assertThrows(IllegalArgumentException.class, () -> {graph.hasEdge(nodeA, null);});
 		}
 	}
 	
@@ -198,12 +198,12 @@ class AdjacencyListUndirectedGraphTest {
 	class HasNodeTests {
 		@Test
 		void checkExistingNode () {
-			graph.addNode("A");
-			assertTrue(graph.hasNode("A"));
+			graph.addNode(nodeA);
+			assertTrue(graph.hasNode(nodeA));
 		}
 		@Test
 		void checkInexistingNode () {
-			assertFalse(graph.hasNode("A"));
+			assertFalse(graph.hasNode(nodeA));
 		}
 		@Test
 		void checkInvalidNode() {
@@ -215,18 +215,18 @@ class AdjacencyListUndirectedGraphTest {
 	class DegreeTests {
 		@Test
 		void zeroAdjacentNode() {
-			graph.addNode("A");
-			graph.addNode("B");
-			assertEquals(0, graph.degree("A"));
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			assertEquals(0, graph.degree(nodeA));
 		}
 		void twoAdjacentNode() {
-			graph.addNode("A");
-			graph.addNode("B");
-			graph.addNode("C");
+			graph.addNode(nodeA);
+			graph.addNode(nodeB);
+			graph.addNode(nodeC);
 			
-			graph.addEdge("B", "A");
-			graph.addEdge("C", "A");
-			assertEquals(2, graph.degree("A"));
+			graph.addEdge(nodeB, nodeA);
+			graph.addEdge(nodeC, nodeA);
+			assertEquals(2, graph.degree(nodeA));
 		}
 		@Test
 		void checkDegreeOfInvalidNode() {
@@ -238,9 +238,9 @@ class AdjacencyListUndirectedGraphTest {
 	class ClearTests {
 		@Test
 		void clear() {
-			graph.addNode("A");
-			graph.addNode("B");
-			graph.addEdge("A", "B");
+			graph.addNode(nodeA);
+			graph.addNode(nodeC);
+			graph.addEdge(nodeA, nodeB);
 			graph.clear();
 			
 			assertEquals("[]", Arrays.toString(graph.getNodes()));
@@ -253,9 +253,6 @@ class AdjacencyListUndirectedGraphTest {
 		@Test
 		void bfsToCompleteGraph() {
 			//use 3*3 adjacency List graph
-			String nodeA = "A";
-			String nodeB = "B";
-			String nodeC = "C";
 			graph.addNode(nodeA);
 			graph.addNode(nodeB);
 			graph.addNode(nodeC);
@@ -267,9 +264,6 @@ class AdjacencyListUndirectedGraphTest {
 		@Test
 		void bfsToDisconnectedGraph() {
 			//only the nodes that are connected to the specified node should be showed.
-			String nodeA = "A";
-			String nodeB = "B";
-			String nodeC = "C";
 			graph.addNode(nodeA);
 			graph.addNode(nodeB);
 			graph.addNode(nodeC);
@@ -284,9 +278,6 @@ class AdjacencyListUndirectedGraphTest {
 		@Test
 		void bfsToCompleteGraph() {
 			//use 3*3 adjacency List graph
-			String nodeA = "A";
-			String nodeB = "B";
-			String nodeC = "C";
 			graph.addNode(nodeA);
 			graph.addNode(nodeB);
 			graph.addNode(nodeC);
@@ -298,9 +289,6 @@ class AdjacencyListUndirectedGraphTest {
 		@Test
 		void bfsToDisconnectedGraph() {
 			//all the nodes in the graph should be shown including disconnected nodes.
-			String nodeA = "A";
-			String nodeB = "B";
-			String nodeC = "C";
 			graph.addNode(nodeA);
 			graph.addNode(nodeB);
 			graph.addNode(nodeC);
@@ -322,7 +310,7 @@ class AdjacencyListUndirectedGraphTest {
 			 *        /   \
 			 *       /     \
 			 *    nodeD   nodeE
-			 */   
+			 */
 			assertEquals("[A, B, D, E, C]", completeGraph.dfs("A").toString());
 		}
 		@Test
@@ -377,32 +365,29 @@ class AdjacencyListUndirectedGraphTest {
 	class Operations {
 		@Test
 		void operationsGraph() {
-			String A = "A";
-			graph.addNode(A);
+			graph.addNode(nodeA);
 			//add loop edge
-			graph.addEdge(A, A);
+			graph.addEdge(nodeA, nodeA);
 			assertEquals("[A, A]", graph.toString());
-			assertTrue(graph.hasEdge(A, A));
+			assertTrue(graph.hasEdge(nodeA, nodeA));
 			//remove loop edge
-			assertTrue(graph.removeEdge(A, A));
-			assertFalse(graph.hasEdge(A, A));
+			assertTrue(graph.removeEdge(nodeA, nodeA));
+			assertFalse(graph.hasEdge(nodeA, nodeA));
 			assertEquals("", graph.toString());
 			
-			String B = "B";
-			graph.addNode(B);
-			String C = "C";
-			graph.addNode(C);
+			graph.addNode(nodeB);
+			graph.addNode(nodeC);
 
-			graph.addEdge(A, B);
-			graph.addEdge(A, C);
-			graph.addEdge(B, C);
+			graph.addEdge(nodeA, nodeB);
+			graph.addEdge(nodeA, nodeC);
+			graph.addEdge(nodeB, nodeC);
 			String completeGraph = "[A, B] [B, A], [A, C] [C, A], [B, C] [C, B]";
 			
 			assertEquals(completeGraph, graph.toString());
 			
-			assertTrue(graph.hasEdge(A, B));
-			assertTrue(graph.hasNode(B));
-			assertEquals(2, graph.degree(A));
+			assertTrue(graph.hasEdge(nodeA, nodeB));
+			assertTrue(graph.hasNode(nodeB));
+			assertEquals(2, graph.degree(nodeA));
 			
 			graph.clear();
 			assertEquals("", graph.toString());
