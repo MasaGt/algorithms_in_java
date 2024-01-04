@@ -281,24 +281,31 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class BFSTests {
 		@Test
 		void bfsToCompleteGraph() {
-			//use 3*3 adjacency matrix graph
-			smallGraph.addNode(nodeA);
-			smallGraph.addNode(nodeB);
-			smallGraph.addNode(nodeC);
-			smallGraph.addEdge(nodeA, nodeB);
-			smallGraph.addEdge(nodeB, nodeC);
-			smallGraph.addEdge(nodeC, nodeA);
-			assertEquals("[A, B, C]", smallGraph.bfs("A").toString());
+			/*
+			 *             node1
+			 *            /     \
+			 *           /       \
+			 *        node2     node3
+			 *        /   \
+			 *       /     \
+			 *    node4   node5
+			 */ 
+			assertEquals("[1, 2, 3, 4, 5]", completeGraph.bfs(node1).toString());
 		}
 		@Test
 		void bfsToDisconnectedGraph() {
+			/*
+			 *             node1
+			 *            /     
+			 *           /       
+			 *        node2     node3
+			 *        /   \       \
+			 *       /     \       \
+			 *    node4   node5    node6
+			 */ 
 			//only the nodes that are connected to the specified node should be showed.
-			smallGraph.addNode(nodeA);
-			smallGraph.addNode(nodeB);
-			smallGraph.addNode(nodeC);
-			// the node that is connected to node A is only node C
-			smallGraph.addEdge(nodeA, nodeC);
-			assertEquals("[A, C]", smallGraph.bfs("A").toString());
+			//node3 and 6 are disconnected from node1.
+			assertEquals("[1, 2, 4, 5]", disconnectedGraph.bfs(node1).toString());
 		}
 	}
 	
@@ -306,24 +313,32 @@ public class AdjacencyMatrixUndirectedGraphTest {
 	class BFSToDisconnectedGraphTests {
 		@Test
 		void bfsToCompleteGraph() {
-			//use 3*3 adjacency matrix graph
-			smallGraph.addNode(nodeA);
-			smallGraph.addNode(nodeB);
-			smallGraph.addNode(nodeC);
-			smallGraph.addEdge(nodeA, nodeB);
-			smallGraph.addEdge(nodeB, nodeC);
-			smallGraph.addEdge(nodeC, nodeA);
-			assertEquals("[A, B, C]", smallGraph.bfsToDisconnectedGraph("A").toString());
+			/*
+			 *             node1
+			 *            /     \
+			 *           /       \
+			 *        node2     node3
+			 *        /   \
+			 *       /     \
+			 *    node4   node5
+			 */
+			//this should works as normal bfs()
+			assertEquals("[1, 2, 3, 4, 5]", completeGraph.bfsToDisconnectedGraph(node1).toString());
 		}
 		@Test
 		void bfsToDisconnectedGraph() {
+			/*
+			 *             node1
+			 *            /     
+			 *           /       
+			 *        node2     node3
+			 *        /   \       \
+			 *       /     \       \
+			 *    node4   node5    node6
+			 */ 
 			//all the nodes in the graph should be showed
-			smallGraph.addNode(nodeA);
-			smallGraph.addNode(nodeB);
-			smallGraph.addNode(nodeC);
-			// node B is disconnected
-			smallGraph.addEdge(nodeA, nodeC);
-			assertEquals("[A, C, B]", smallGraph.bfsToDisconnectedGraph("A").toString());
+			//node3 and 6 are disconnected from node1.
+			assertEquals("[1, 2, 4, 5, 3, 6]", disconnectedGraph.bfsToDisconnectedGraph(node1).toString());
 		}
 	}
 	
@@ -340,7 +355,6 @@ public class AdjacencyMatrixUndirectedGraphTest {
 			 *       /     \
 			 *    node4   node5
 			 */   
-			
 			assertEquals("[1, 2, 4, 5, 3]", completeGraph.dfs(node1).toString());
 		}
 		@Test
